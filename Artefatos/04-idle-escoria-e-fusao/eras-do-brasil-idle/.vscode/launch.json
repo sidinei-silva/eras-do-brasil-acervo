@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach ao Backend (Air + Delve)",
+      "type": "go",
+      "request": "attach",
+      "mode": "remote",
+      "host": "127.0.0.1",
+      "port": 2345,
+      "cwd": "${workspaceFolder}/backend",
+      "showLog": true,
+      "preLaunchTask": "Executar Air"
+    }
+  ]
+}

@@ -10,10 +10,11 @@
 > do Gemini em [`Conversas/Gemini/`](Conversas/Gemini/), as sessões do Claude em
 > [`Conversas/Claude/`](Conversas/Claude/), os logs de sessão do Copilot arquivados em
 > [`Artefatos/03-mud-moderno-pre-fusao/gdd-batalha-turno/historico/`](Artefatos/03-mud-moderno-pre-fusao/gdd-batalha-turno/historico/) e uma checagem direta
-> dos repositórios de código (`eras-do-brasil-game-arquivado`, `eras-do-brasil-gdd`,
-> `escoria`, `eras-do-brasil-idle`, `eras-do-brasil`, fora deste repositório). As
-> conversas do Claude vão até 14/10/2026 (dois exports, o segundo com as instruções e
-> memórias dos Projects); as do ChatGPT até 24/09/2026. Ainda falta mapear
+> dos repositórios de código. Os repositórios antigos de código (`eras-do-brasil-game-arquivado`,
+> `eras-do-brasil-idle` e `eras-do-brasil-semi-idle`) estão copiados aqui, com histórico
+> completo, em `Artefatos/`; o atual, `eras-do-brasil`, continua no GitHub. As conversas do
+> Claude vão até 22/10/2026 (três exports, com instruções e memórias dos Projects); as do
+> ChatGPT até 24/09/2026; as do Gemini até 21/10/2026. Ainda falta mapear
 > `Artefatos/01-rpg-de-mesa-e-narrativa/NotebookLM/` na cronologia (ver
 > [Pendências](#pendências) no fim).
 
@@ -30,7 +31,12 @@ spin-off idle ("A Escória"/"Outlander") nasce, cresce sozinho, e acaba **absorv
 o Eras do Brasil: a arquitetura do spin-off e o mundo/lore do Eras se fundem em um
 único jogo idle em Go. Em outubro de 2026 esse idle também é deixado de lado: o Eras
 recomeça em TypeScript como um RPG de turno com modo ativo e caçada automática, e em
-14/10/2026 o próprio Sidinei declara o jogo *"totalmente indeciso"*.
+14/10/2026 o próprio Sidinei declara o jogo *"totalmente indeciso"*. Uma semana de
+"estudo solto" depois, ele tira do Eras o papel de "jogo perfeito para mim" e o jogo
+reaparece como **MMORPG sandbox por turno para PC**, com regras d20 no estilo Pathfinder
+2e e progressão do Albion, enredo escrito por ele mesmo e um repositório novo
+(`eras-do-brasil`, 21/10/2026) que por enquanto só tem documentação — com a stack
+(Unity + .NET) ainda como proposta não confirmada.
 
 ## Marcos: todas as roupagens do projeto
 
@@ -50,15 +56,19 @@ aponta para a linha correspondente da [Cronologia](#cronologia).
 | 8 | 31/05/2026 | **Albion Idle** → **Deuses-Armas** | Spin-off idle MMO copiando as mecânicas do Albion | Go | Claude | Renomeado no 9 | 33 |
 | 9 | 23/06/2026 | **A Escória** (codinome **Outlander**) | Idle RPG "você é o que veste", full loot; **Eras congelado** | Go + Postgres | Claude + ChatGPT | Absorveu o Eras no 10 | 34–38 |
 | 10 | 06/09/2026 | **Eras do Brasil** (idle) | Fusão: esqueleto da Escória + mundo do Eras; MVP "A Travessia" | Go + Godot, arte 3D low poly | Claude + ChatGPT | Planejado para ser congelado após o tutorial | 39–52 |
-| 11 | 03/10/2026 | **Eras do Brasil** (novo) | RPG de turno instanciado com **modo ativo e caçada automática**, câmera 3D inclinada | **TypeScript** em tudo, monorepo, Electron para Steam | Claude | Em aberto | 53–58 |
-| 12 | 14/10/2026 | — | *"Quero declarar aqui que o jogo esta totalmente indeciso"* | — | — | **Hoje** | 59 |
+| 11 | 03/10/2026 | **Eras do Brasil** (novo) | RPG de turno instanciado com **modo ativo e caçada automática**, câmera 3D inclinada | **TypeScript** em tudo, monorepo, Electron para Steam | Claude | Repo renomeado para `-semi-idle` em 21/10 | 53–58 |
+| 12 | 14/10/2026 | — | *"Quero declarar aqui que o jogo esta totalmente indeciso"* | — | — | Uma semana depois, virou o 13 | 59 |
+| 13 | 15–21/10/2026 | **Eras do Brasil** (nome em aberto; "Eternos" cogitado) | **MMORPG sandbox por turno** para PC: d20 estilo Pathfinder 2e, grid com 3 ações, progressão do Albion, manual como pilar e automático como apoio, sem full loot | Unity + .NET + núcleo C# **(proposta do Claude, não confirmada)** | Claude + Gemini | **Hoje** — só documentação, nenhum código | 60–66 |
 
-**Contando:** 12 roupagens em pouco mais de 3 anos — 6 nomes diferentes (1500 Caminhos,
+**Contando:** 13 roupagens em pouco mais de 3 anos — 6 nomes diferentes (1500 Caminhos,
 Eras do Brasil, Albion Idle, Deuses-Armas, A Escória/Outlander e de novo Eras do Brasil),
-8 gêneros ou formatos (RPG de turno, RPG de mesa, RPG de texto, tático co-op, MUD MMORPG,
-idle MMO, idle fundido, turno com automação), 4 tecnologias de base (Unity/C#, Go + web,
-Go + Godot, TypeScript + Electron) e **3 recomeços do código do zero** (o reset de
-03/04/2026, o reset da Escória em ago/2026 e o repositório novo de out/2026).
+9 gêneros ou formatos (RPG de turno, RPG de mesa, RPG de texto, tático co-op, MUD MMORPG,
+idle MMO, idle fundido, turno com automação, MMORPG sandbox por turno), 5 tecnologias de
+base (Unity/C#, Go + web, Go + Godot, TypeScript + Electron e, proposta, Unity + .NET) e
+**4 recomeços do zero** (o reset de 03/04/2026, o reset da Escória em ago/2026, o
+repositório em TypeScript de 05/10 e o repositório só de documentação de 21/10). A
+[seção de mecânicas](#como-cada-mecânica-mudou-entre-as-roupagens) mostra o que mudou
+por dentro em cada uma.
 
 **Os padrões que se repetem**, nas palavras do próprio Sidinei ou das IAs que
 acompanharam o projeto:
@@ -77,6 +87,32 @@ acompanharam o projeto:
 - **Cada recomeço melhora o papel.** Sidinei: *"a cada 'refazer' 'repensar' 'rever' e
   'restartar' o projeto eu sinto que estou dando mais um passo"*; o Claude, no mesmo
   dia: *"Cada recomeço melhorou o papel e jogou a implementação fora."*
+- **Identidade que muda a cada poucas semanas.** Em 19/10 o Claude resumiu: *"o jogo
+  muda de identidade a cada poucas semanas e volta para o zero… O que falta é uma âncora
+  pequena"*. A resposta do Sidinei foi tirar do Eras o papel de *"jogo perfeito para o
+  Sidinei jogador"* (15/10) e fixar um norte de quatro linhas que, na prática, é o que ele
+  escreveu no WhatsApp em 2023: jogo de turno, *"sua classe é o que você usa"*, o seu
+  trabalho importa no mundo e poder parar sem perder nada.
+
+## Como cada mecânica mudou entre as roupagens
+
+Um corte por sistema, para ver o que mudou por dentro do jogo além do nome e da
+tecnologia. Cada célula resume o que estava valendo naquela fase, segundo os documentos e
+as conversas dela; "—" quando a fase não chegou a definir aquilo.
+
+| Sistema | RPG de mesa D20 (2025) | MUD Moderno (mar–mai/2026) | A Escória / idle fundido (jun–set/2026) | Semi-idle TypeScript (03–14/10/2026) | MMORPG sandbox por turno (15/10/2026 →) |
+|---|---|---|---|---|---|
+| **Combate** | D20 por turno, mesa narrada | D20 estático no MVP; grid tático planejado para depois | Auto-battler em ondas fechadas (teto de 50 rodadas), WebSocket cortado do MVP | Turno instanciado em filas (*lanes*) e casas; modo ativo e caçada automática no mesmo motor | Grid com 3 ações + 1 reação e penalidade de ataque múltiplo (Pathfinder 2e); **manual é o pilar, automático é o apoio**; a IA dos inimigos usa o mesmo decisor do automático |
+| **Resolução** | 1d20 + atributo + proficiência | 1d20 + modificador contra CD; Fadiga Espiritual no lugar de Mana | Fórmulas de idle (taxa × tempo) | Matemática inteira e RNG próprio, determinístico | 1d20 + atributo + proficiência + item; quatro graus de sucesso (±10); determinístico |
+| **Personagem e progressão** | 12 classes, 3 origens, tiers 1–3, troca pelo Dom da Revivência | 12 classes D20, tiers por nível | **"Você é o que veste"**, Árvore do Destino (Maestria → Poder de Item), Têmpera → **Afinidade** | Você é o que veste, sem classe | Sem classe e sem nível: skills, passivas e atributos vêm do equipamento; duas escadas (maestria como gate de tier em 8 marcos + especialização) |
+| **Morte e risco** | — | Full loot formalizado em 11/03 e tirado do MVP em 17/03; morte custa % de XP e durabilidade | Full loot na Escória; no Eras fundido, MVP sem perda de equipamento e PvP só consentido | Durabilidade atual + teto; morte ativa zera o teto, morte no automático só desgasta; fuga é a ação do turno | **Sem full loot**: o teto da durabilidade é o ralo de itens; morte manual perde durabilidade, um pouco de teto e parte da carga |
+| **Mundo** | Atos históricos (Portugal 1497 → República) | Mata Costeira e 5 regiões por gradiente de nível; temporadas que fecham a história; NPCs com rotina e fofoca | Zonas; Travessia como ilha tutorial; Era 1 (1500–1654) com 5 regiões e 22 zonas; eras misturadas | Servidor só com pontos de interesse | Zonas ligadas por saídas: Travessia (T1–T2) → bruma → Era 1 (T1–T6) → Era 2; eras como expansões **horizontais**; NPCs de vila e viajantes |
+| **Protagonista e lore** | Colonizador, indígena ou ser folclórico; Despertos | *"O mundo não espera por herói"*; sem escolhido; Ruptura de 1497 | Catador (Escória) / forasteiro puxado pela Raiz; Os Perdidos | Sem decisão de história ou mundo (*"não se decidiu nada de história nem de mundo"*) | **Puxado**: pessoa comum, eterna, sem origem lembrada; a Raiz tem vontade própria; Enraizados e Perdidos; *"Você não foi escolhido. Ninguém aqui foi."* |
+| **Plataforma e público** | Mesa | Navegador, cliente web | Navegador/Godot, MMO idle | PC via Steam (Electron) | **Só PC (Steam)**, para quem tem pouco tempo e precisa sair do teclado de repente; *"for fun"* |
+
+**O que nunca mudou:** história e folclore do Brasil como inspiração; progressão
+inspirada no Albion desde que o Albion entrou (mai/2026); e o desejo, presente desde a
+conversa de WhatsApp de 2023, de que a arma ou o equipamento definam o personagem.
 
 ## Cronologia
 
@@ -111,7 +147,7 @@ acompanharam o projeto:
 | 25 | 2026-03-17 | Narrativa dinâmica e temporadas no mmorpg (Claude + Copilot) | Nasce a tese central do jogo: **"o mundo não espera por herói"** — sem escolhido, reputação emergente por quests competitivas, temporadas que fecham a história permanentemente. 16 decisões aplicadas ao GDD via **ADR-007 a ADR-012** (mesmo dia, sessão espelhada no `gdd-batalha-turno`). | [2026-03-17_Narrativa dinâmica e temporadas no mmorpg.md](Conversas/Claude/2026-03-17_Narrativa%20din%C3%A2mica%20e%20temporadas%20no%20mmorpg.md) · [sessão GDD](Artefatos/03-mud-moderno-pre-fusao/gdd-batalha-turno/historico/sessions/2026-03-17-decisoes-narrativa-mmorpg.md) |
 | 26 | 2026-03-19 | Furos de lore (Copilot, `gdd-batalha-turno`) | 9 furos de consistência resolvidos: causa da Ruptura de 1497 (ritual folclórico fracassado), Mana substituída por **Fadiga Espiritual**, Guardião da Fenda redefinido como protetor (não vilão), Dano Espiritual como tipo oficial. | [historico/sessions/2026-03-19-furos-de-lore.md](Artefatos/03-mud-moderno-pre-fusao/gdd-batalha-turno/historico/sessions/2026-03-19-furos-de-lore.md) |
 | 27 | 2026-03-20 | Arquitetura do Mapa e Regiões (Copilot, `gdd-batalha-turno`) | Mapa hierárquico em 3 camadas (Mapa-Múndi → Zonas → Sub-locais, estes adiados). 5 regiões com gradiente de nível: Mata Costeira (1–5) → Sertão Distorcido → Serra dos Ecos → Pantanal Vivo → Coração da Raiz (20+). Só a Mata Costeira é detalhada para o MVP. | [historico/sessions/2026-03-20-arquitetura-mapa.md](Artefatos/03-mud-moderno-pre-fusao/gdd-batalha-turno/historico/sessions/2026-03-20-arquitetura-mapa.md) |
-| 28 | 2026-04-03 | Reset do código (Claude Code, `eras-do-brasil-game-arquivado`) | **Todo o código Go do servidor é apagado** para ser reescrito sem IA: *"perdeu a capacidade de abstração e raciocínio lógico por ter delegado demais para IA"*. IA passa a ser só guia, sem entregar código; tudo recomeça num único `main.go`, na ordem "mundo → tempo → locais → recursos → mobs → NPCs → player". O código anterior fica no commit [`4d64406`](https://github.com/sidinei-silva/eras-do-brasil-game-arquivado/commit/4d644064f2271e1d5116e1fdcdc45ac8ad9524d2). A decisão foi tomada no ambiente de código, não num chat do Claude.ai; as conversas de 07/04 e 18/04 tratam do reset já feito (*"eu fiz o reset porque todo codigo que existia era feito por agente"*). | [2026-04-03-reset-reimplementacao-do-zero.md](Artefatos/03-mud-moderno-pre-fusao/eras-do-brasil-game-arquivado/historico/sessions/2026-04-03-reset-reimplementacao-do-zero.md) · [Claude 07/04](Conversas/Claude/2026-04-07_Escolher%20linguagem%20para%20servidor%20MMORPG%20textual.md) · [Claude 18/04](Conversas/Claude/2026-04-18_Estrutura%20de%20pastas%20para%20projeto%20de%20game.md) |
+| 28 | 2026-04-03 | Reset do código (Claude Code, `eras-do-brasil-game-arquivado`) | **Todo o código Go do servidor é apagado** para ser reescrito sem IA: *"perdeu a capacidade de abstração e raciocínio lógico por ter delegado demais para IA"*. IA passa a ser só guia, sem entregar código; tudo recomeça num único `main.go`, na ordem "mundo → tempo → locais → recursos → mobs → NPCs → player". O código anterior fica no commit `4d64406`, preservado no [histórico completo do repositório](Artefatos/03-mud-moderno-pre-fusao/eras-do-brasil-game-arquivado/_SOBRE-ESTA-COPIA.md) (`git clone` no bundle e `git show 4d64406`). A decisão foi tomada no ambiente de código, não num chat do Claude.ai; as conversas de 07/04 e 18/04 tratam do reset já feito (*"eu fiz o reset porque todo codigo que existia era feito por agente"*). | [2026-04-03-reset-reimplementacao-do-zero.md](Artefatos/03-mud-moderno-pre-fusao/eras-do-brasil-game-arquivado/historico/sessions/2026-04-03-reset-reimplementacao-do-zero.md) · [Claude 07/04](Conversas/Claude/2026-04-07_Escolher%20linguagem%20para%20servidor%20MMORPG%20textual.md) · [Claude 18/04](Conversas/Claude/2026-04-18_Estrutura%20de%20pastas%20para%20projeto%20de%20game.md) |
 | 29 | 2026-04-18 | Estrutura de pastas para projeto de game (Claude) | Sessão-maratona: **ADR-007** [do repositório de código, numeração própria] fecha a arquitetura (flat por domínio, cada manager dono do próprio estado, sem "GameState" central) e nasce o formato "Refinamento N.N" usado em todos os chats técnicos seguintes. Recusa deliberada de TDD-com-IA para o núcleo de simulação. | [2026-04-18_Estrutura de pastas para projeto de game.md](Conversas/Claude/2026-04-18_Estrutura%20de%20pastas%20para%20projeto%20de%20game.md) |
 | 30 | 2026-04-29 | Conceito de jogo idle com gestão de personagens (Claude) | **Primeira menção da ideia de um jogo idle** (estilo Evil Hunter Tycoon/Melvor Idle). Sidinei decide guardar a ideia e manter o foco no Eras do Brasil — ainda não é o pivô. | [2026-04-29_Conceito de jogo idle com gestão de personagens.md](Conversas/Claude/2026-04-29_Conceito%20de%20jogo%20idle%20com%20gest%C3%A3o%20de%20personagens.md) |
 | 31 | 2026-05-23 | Decisões técnicas para Eras do Brasil (Claude) | Claude identifica um padrão: a dúvida "devo trocar de linguagem" já voltou **5 vezes em 2 meses** — sintoma de cansaço/sobrecarga, não decisão técnica. Primeiro sinal explícito de fadiga com o projeto, via diários de desenvolvimento anexados. | [2026-05-23_Decisões técnicas para Eras do Brasil.md](Conversas/Claude/2026-05-23_Decis%C3%B5es%20t%C3%A9cnicas%20para%20Eras%20do%20Brasil.md) |
@@ -145,6 +181,13 @@ acompanharam o projeto:
 | 57 | 2026-10-09 → 10 | Deno e Bun adoção para MMORPG (Claude) + diário | **Go sai, TypeScript entra.** Em 09/10 a dúvida volta (*"minha cabeça não para de martelar a duvida go x js\|ts"*); sem engine pesada, o cliente vira web e o argumento a favor de Go cai. O Claude propõe Electron para a Steam (Sidinei acha jogo de navegador "estranho"); em 10/10: *"Vou fazer tudo node mesmo"* — monorepo com `packages/core` determinístico, servidor Node e playgrounds para testar uma mecânica por vez. | [2026-10-10_Deno e Bun adoção para MMORPG.md](Conversas/Claude/2026-10-10_Deno%20e%20Bun%20ado%C3%A7%C3%A3o%20para%20MMORPG.md) · [pesquisa de combate](Conversas/Claude/2026-10-10_Jogos%20com%20combate%20por%20turno%20autom%C3%A1tico.md) |
 | 58 | 2026-10-12 | Jogo eras do Brasil combate (Claude) | O núcleo de combate começa a ser codificado em TypeScript: filas paralelas (*lanes*) e casas de movimento configuráveis, limite de tempo de turno no PvP, fuga como configuração. | [2026-10-12_Jogo eras do Brasil combate.md](Conversas/Claude/2026-10-12_Jogo%20eras%20do%20Brasil%20combate.md) |
 | 59 | 2026-10-14 | Ansiedade no desenvolvimento do Eras do Brasil (Claude, último dia) | O Claude mostra que a IA escreveu justamente o core que ele queria aprender (`position.ts` e o playground). Desabafo: *"eu sempre vou tentar fazer sem IA, em algum momento vou usar IA [...] e vou começar de novo do zero, e isso vai acontecer sempre sempre sempre e sempre"*; *"nem sei mais o que é o projeto por tantas mudanças que ele ja teve"*. Torna público o repo `eras-do-brasil-game-arquivado` e registra: **"Quero declarar aqui que o jogo esta totalmente indeciso"**. Nada mais é decidido. | [2026-10-03_Ansiedade no desenvolvimento do Eras do Brasil.md](Conversas/Claude/2026-10-03_Ansiedade%20no%20desenvolvimento%20do%20Eras%20do%20Brasil.md) |
+| 60 | 2026-10-15 | Ansiedade no desenvolvimento do Eras do Brasil (Claude, fim) | Responde a *"o que você quer sentir jogando isso?"*: o Eras carregava a indecisão do que jogar, o pouco tempo, a ansiedade com IA no trabalho e o medo de atrofia. Decide: *"o trabalho 1 Ser o jogo perfeito para o Sidinei jogador. pode ser removido"*, e resgata o norte de 2023 — turno, *"sua classe é o que você usa"*, o trabalho importa no mundo, poder parar sem perder nada. Estima: *"esse jogo vai demorar uns 6 anos ou mais"*. | [Ansiedade](Conversas/Claude/2026-10-03_Ansiedade%20no%20desenvolvimento%20do%20Eras%20do%20Brasil.md) |
+| 61 | 2026-10-15 → 16 | RavenIdle melee vs ranged mechanics (Claude, início) | Abre como estudo sem compromisso: *"o estado do eras do brasil esta parado... vamos fingir que não existe eras do brasil"*. Em um dia o estudo vira design: *"Realmente estou tendendo para turno e acho que vai ser isso seguir o caminho do pathfinder"*; full loot sai (*"vamos colocar perda de porcentagem de durabilidade"*); *"Vou para grid visivel"* com 3 ações; regras d20 do livro de 2025 e progressão do Albion: *"concordo unir os 2"*; MVP = a ilha tutorial, no molde do Albion. | [RavenIdle](Conversas/Claude/2026-10-15_RavenIdle%20melee%20vs%20ranged%20mechanics.md) |
+| 62 | 2026-10-17 | Consolidados, Stoneshard e a stack (Claude) | Dois consolidados do que existia antes da pausa: o **F8** (semi-idle, 03–14/10) e o **de decisões** (versão idle de setembro). Uma análise de "Stoneshard como MMORPG" leva ao combate em bolha instanciada. Ao pedir a melhor stack "para esse jogo nesse formato", recebe do Claude a recomendação **Unity + servidor .NET + núcleo em C#** (3D low poly, equipamento visível com um só esqueleto) — que ele nunca confirmou explicitamente. A estrutura `core/ server/ sim/ client/ data/ docs/` (Obsidian) é montada no mesmo dia. | [consolidado F8](Artefatos/05-semi-idle-typescript/consolidado-f8_2026-10-17.md) · [consolidado idle](Artefatos/04-idle-escoria-e-fusao/consolidado-de-decisoes-versao-idle_2026-10-17.md) · [Stoneshard](Conversas/Claude/2026-10-17_Stoneshard%20como%20MMORPG.md) · [estrutura](Conversas/Claude/2026-10-17_Gitignore%20para%20estrutura%20de%20projeto.md) · [conversa](Conversas/Claude/2026-10-17_Consolidado%20do%20jogo.md) |
+| 63 | 2026-10-17 → 18 | Lore e estrutura de eras (Claude) | Tira o "Dom" (*"se o personagem é uma pessoa comum não heroi não pode ter dom"*); a Travessia vira *"um estado"*; aceita **Eternos** e **Enraizados**; Era 1 = Brasil 1500–1654 e eras como expansões em que *"inclusão de Era não é aumento de poder e sim de possibilidade"* (tiers 1–6 em cada uma). No fim de 18/10: *"Sinceramente não me convenceu... parece ter muito mais pontas soltas"*. | [RavenIdle](Conversas/Claude/2026-10-15_RavenIdle%20melee%20vs%20ranged%20mechanics.md) · [isekai](Conversas/Claude/2026-10-18_Isekai%20MMORPG%20com%20Eras.md) · [plugins e MMOs sem herói](Conversas/Claude/2026-10-18_Plugins%20para%20criar%20MMORPG.md) |
+| 64 | 2026-10-19 | Consolidado do estudo + brainstorm multiagente (Claude) | O Claude junta o estudo num documento único (o "Consolidado do estudo"); NPCs ficam em duas categorias, *"somente viajantes e npcs de vila"*; e duas rodadas de debate entre agentes com estilos diferentes tentam fechar enredo e mundo. Na conversa sobre processo, o Claude diz que *"o jogo muda de identidade a cada poucas semanas e volta para o zero"* e sugere uma âncora de uma página. | [consolidado do estudo](Artefatos/06-mmorpg-sandbox-por-turno/consolidado-do-estudo-out-2026.md) · [brainstorm](Artefatos/06-mmorpg-sandbox-por-turno/brainstorm-2026-10-19/dossie-fases.md) · [processo](Conversas/Claude/2026-10-19_Criar%20MMORPG%20sandbox%20com%20hist%C3%B3ria.md) |
+| 65 | 2026-10-20 → 21 | Enredo do mundo (Claude + Gemini) | Rejeita a lore das IAs (*"achei muito generico e muito cara de IA"*, *"não gostei de nenhum pouco"*) e **escreve ele mesmo o enredo**, usando Claude e Gemini só para apontar furos: a **Raiz** tem vontade própria e foge, puxando terras de várias eras; **Enraizados** vêm junto com o chão; o jogador é um **Puxado**, eterno e sem origem lembrada; **Perdidos** são os tocados pela Raiz, sem consciência; na Travessia *"ninguem manda"* o jogador ir para a Era 1. | [Gemini](Conversas/Gemini/2026-10-21_Cria%C3%A7%C3%A3o%20de%20Lore%20e%20Enredo.md) · [RavenIdle](Conversas/Claude/2026-10-15_RavenIdle%20melee%20vs%20ranged%20mechanics.md) |
+| 66 | 2026-10-21 → 22 | Repositório novo, só documentação (Claude) | *"estou fazendo o documento a mão"* — com textos curtos, diagramas e Obsidian Canvas. Fecha progressão (*"Confirmo que as 2 escadas entram, confirmo gate por tiers 8 marcos"*) e a Travessia em 20 passos. O repo `eras-do-brasil` recebe o primeiro commit (21/10, 22h25: pilares, 6 mecânicas, enredo, técnico e roteiro em 7 fases, tudo `validado: false`, nenhuma linha de código) e o TypeScript vira `eras-do-brasil-semi-idle` — nenhuma conversa registra o porquê da troca de repo. Em 22/10 o Claude anota que a stack Unity + .NET *"você nunca confirmou de forma explícita"*. | [RavenIdle](Conversas/Claude/2026-10-15_RavenIdle%20melee%20vs%20ranged%20mechanics.md) |
 
 ## Achado: o nome original era "1500 Caminhos do Brasil"
 
@@ -347,23 +390,57 @@ um diário de 03 a 14/10, "Ansiedade no desenvolvimento do Eras do Brasil", com 
    indeciso"**. A conversa termina sem decisão; a pergunta que fica é *"o que você quer
    sentir jogando isso?"*.
 
-## Estado real dos repositórios (conferido em 14/10/2026)
+## Depois do "indeciso": o estudo de 15 a 22/10
 
-Tudo acima veio da interpretação dos chats. Os repositórios de código, que ficam fora
-deste histórico, confirmam a sequência:
+Reconstruído a partir do fim da conversa "Ansiedade" e da sessão "RavenIdle melee vs
+ranged mechanics" (15 a 22/10, mais de 100 mensagens do Sidinei), de cinco conversas
+curtas do Claude e de uma conversa com o Gemini.
 
-| Repositório | Período | O que é |
-|---|---|---|
-| `eras-do-brasil-gdd` | até 21/04/2026 (cópia local parada em 10/09) | GDD D20 do MUD Moderno — o mesmo conteúdo de `Artefatos/03-mud-moderno-pre-fusao/gdd-batalha-turno/` |
-| `eras-do-brasil-game-arquivado` | 13/03 → 24/05/2026, 90 commits | Código do MUD Moderno (Go + web), com o reset de 03/04 (backup no commit `4d64406`). Tornado público em 14/10 |
-| `escoria` | 21/08 (primeira versão) e 31/08 → 10/09/2026 | A Escória / Outlander, em Go |
-| `eras-do-brasil-idle` | 12/09 → 26/09/2026, 74 commits | O Eras idle fundido, em Go — era o `eras-do-brasil` até ser renomeado em out/2026. Fatias 1–3 concluídas e a fatia 4 na branch `04-entrar-no-mundo`. O `README.md` resume a fusão: *"Eras do brasil é um jogo idle [...] você é o que veste"* |
-| `eras-do-brasil` | 05/10/2026 → hoje | O recomeço em TypeScript: monorepo com `apps/`, `packages/`, `data/`, `design/`, `docs/`; último commit em 14/10 (depurador do combate) |
+1. **15/10 — a resposta à pergunta.** A pergunta que ficou em 14/10 (*"o que você quer
+   sentir jogando isso?"*) é respondida já na madrugada seguinte. O Eras vinha
+   carregando tudo ao mesmo tempo: a indecisão do que jogar, o pouco tempo (2 a 3 horas
+   por noite, com babá eletrônica), a ansiedade com o uso de IA no trabalho e o medo de
+   atrofia. Ele tira do jogo o papel de *"jogo perfeito para o Sidinei jogador"* e fica
+   com um norte que é, quase palavra por palavra, o da conversa de WhatsApp de 2023.
+2. **15–16/10 — o estudo que vira design.** Ele pede para *"fingir que não existe eras
+   do brasil"* e só estudar mecânicas. Em 24 horas o estudo já tem lado: turno no estilo
+   Pathfinder, grid visível com 3 ações, durabilidade no lugar de full loot, e as regras
+   d20 do livro de 2025 unidas à progressão do Albion.
+3. **17/10 — a stack muda sem ser decidida.** Pedindo a melhor tecnologia "para esse jogo
+   nesse formato", ele recebe a recomendação de Unity + .NET + núcleo em C#, e monta a
+   estrutura de pastas em cima dela no mesmo dia. Em nenhum momento diz "vou de C#"; em
+   22/10 o próprio Claude registra que a stack nunca foi confirmada, e os docs a mantêm
+   como proposta.
+4. **17–19/10 — lore e mundo, de novo pela IA.** Eternos, Enraizados, Travessia como
+   estado, eras como expansões horizontais (Era 1 = Brasil 1500–1654) e um brainstorm com
+   vários agentes. O resultado não convence: *"parece ter muito mais pontas soltas"*. O
+   Claude descreve o padrão: *"o jogo muda de identidade a cada poucas semanas e volta
+   para o zero"*.
+5. **20–21/10 — o enredo escrito por ele.** Rejeitadas as propostas *"com cara de IA"*,
+   ele escreve o "Enredo do mundo" com as próprias palavras, usando Claude e Gemini só
+   para achar furos. Ficam a Raiz com vontade própria, os Enraizados, os Puxados (o
+   jogador) e os Perdidos. O nome do jogo e quem recebeu o presságio ficam em aberto.
+6. **21–22/10 — um repositório que só tem papel.** *"estou fazendo o documento a mão"*:
+   textos curtos, diagramas e Obsidian. O novo `eras-do-brasil` nasce com pilares, seis
+   mecânicas, enredo e um roteiro de 7 fases até o MVP. Tudo está marcado como
+   `validado: false`, e ainda não há nenhuma linha de código. O roteiro diz que a IA
+   escreve os testes e ele escreve o código.
 
-Os docs normativos da versão idle (`contexto-do-projeto.md`, `decisoes-de-design.md`,
-`arquitetura-consolidada.md`, `direcao-de-arte.md` etc.) ficaram no `eras-do-brasil-idle`.
-O `WORK_NOTES.md` desse repo guarda perguntas de PvP herdadas da Escória que nunca
-chegaram a ser resolvidas.
+## Estado real dos repositórios (conferido em 21/10/2026)
+
+Os três repositórios de código anteriores foram **copiados para este acervo** em
+21/10/2026, com o histórico completo em `git bundle`, para poderem ser apagados do GitHub:
+
+| Repositório | Período | O que é | Onde está agora |
+|---|---|---|---|
+| `eras-do-brasil-gdd` | até 21/04/2026 | GDD D20 do MUD Moderno | [`Artefatos/03-mud-moderno-pre-fusao/gdd-batalha-turno/`](Artefatos/03-mud-moderno-pre-fusao/gdd-batalha-turno/) (cópia sem histórico, feita antes) |
+| `eras-do-brasil-game-arquivado` | 13/03 → 24/05/2026, 90 commits | Código do MUD Moderno (Go + web), com os NPCs "vivos" e o reset de 03/04 | [`Artefatos/03-mud-moderno-pre-fusao/eras-do-brasil-game-arquivado/`](Artefatos/03-mud-moderno-pre-fusao/eras-do-brasil-game-arquivado/_SOBRE-ESTA-COPIA.md) + `.bundle` |
+| `escoria` | 21/08 e 31/08 → 10/09/2026 | A Escória / Outlander, em Go | ainda no GitHub, não copiado |
+| `eras-do-brasil-idle` | 12/09 → 26/09/2026, 74 commits | O Eras idle fundido, em Go, MVP "A Travessia" | [`Artefatos/04-idle-escoria-e-fusao/eras-do-brasil-idle/`](Artefatos/04-idle-escoria-e-fusao/eras-do-brasil-idle/_SOBRE-ESTA-COPIA.md) + `.bundle` |
+| `eras-do-brasil-semi-idle` | 05/10 → 14/10/2026, 17 commits | O recomeço em TypeScript (core de combate, playground) | [`Artefatos/05-semi-idle-typescript/eras-do-brasil-semi-idle/`](Artefatos/05-semi-idle-typescript/eras-do-brasil-semi-idle/_SOBRE-ESTA-COPIA.md) + `.bundle` |
+| `eras-do-brasil` | 21/10/2026 → hoje, 1 commit | O atual: só documentação (Obsidian), stack proposta Unity + .NET | no GitHub — **não copiado**, é o projeto vivo |
+
+Para recuperar qualquer um deles por inteiro: `git clone <nome>.bundle <pasta>`.
 
 ### Evolução do nome do jogo idle: Albion Idle → Deuses-Armas → A Escória → Outlander
 
@@ -376,6 +453,8 @@ chegaram a ser resolvidas.
 | **A Escória** / codinome **Outlander** | já consolidado em 23/06/2026 (transição não documentada — ver Pendências) | "Outlander" é o nome do repositório/código (`go mod init escoria`); "A Escória" é o nome do jogo/lore. |
 | **Eras do Brasil** (repo `eras-do-brasil`) | decidido em 06/09/2026; repo renomeado de `escoria` para `eras-do-brasil` sem anúncio (visto a partir de 14/09) | Nome público prevalece após a fusão — mas tecnicamente é a arquitetura de A Escória por baixo. O repo antigo virou `escoria-arquivado`. Em 19/09: *"o game a escoria morreu ele virou eras do brasil"*. |
 | **Eras do Brasil** (repo novo, TypeScript) | 05/10/2026 | O repo idle vira `eras-do-brasil-idle` e o nome `eras-do-brasil` passa ao recomeço em TypeScript, que já não é idle. |
+| **Eternos: As Eras do Brasil** (cogitado) | 17–18/10/2026 | Proposto ao redor do tema dos jogadores que não morrem; ficou em aberto porque colide com Marvel e New World. Em 21/10 o jogador passa a se chamar "Puxado", e o nome do jogo segue sem decisão. |
+| **Eras do Brasil** (repo de documentação) | 21/10/2026 | O TypeScript vira `eras-do-brasil-semi-idle` e o nome `eras-do-brasil` passa, de novo, a um recomeço. |
 
 ### Índice completo das sessões técnicas (`Conversas/Claude/`)
 
@@ -489,8 +568,23 @@ fonte, artefato por era):
 | Log do reset de 03/04/2026, vindo do repo `eras-do-brasil-game-arquivado` | `Artefatos/03-mud-moderno-pre-fusao/eras-do-brasil-game-arquivado/` |
 | Instruções, documentos e memória dos Projects "Projeto Outland", "A Escória (Outlander)", "Eras do Brasil - Arquivado 2" e "Eras do Brasil" | `Artefatos/04-idle-escoria-e-fusao/claude-projects/` — **era nova**: com o recomeço em TypeScript, a fase idle (mai–set/2026) também virou histórico |
 
-A era atual (o recomeço em TypeScript de out/2026) não tem pasta aqui porque vive no
-repositório `eras-do-brasil`.
+**Acréscimos do export do Claude de 21/10/2026**, mesma regra:
+
+| O quê | Onde |
+|---|---|
+| 7 conversas novas e a "Ansiedade" atualizada (até 17/10) | `Conversas/Claude/` |
+| Conversa com o Gemini sobre lore e enredo (21/10) | `Conversas/Gemini/` |
+| Memórias do jogo atualizadas | `Conversas/Claude/memorias/` |
+| Cópia + histórico completo (`.bundle`) do `eras-do-brasil-game-arquivado` | `Artefatos/03-mud-moderno-pre-fusao/` |
+| Cópia + histórico completo do `eras-do-brasil-idle`; consolidado de decisões da versão idle (17/10); instruções do Project mescladas em 25/09 | `Artefatos/04-idle-escoria-e-fusao/` |
+| Cópia + histórico completo do `eras-do-brasil-semi-idle` e o consolidado F8 | `Artefatos/05-semi-idle-typescript/` — **era nova** |
+| Consolidado do estudo de out/2026 e o brainstorm multiagente de 19/10 | `Artefatos/06-mmorpg-sandbox-por-turno/` — **era nova**, a atual |
+
+A era atual tem uma pasta só para o que não está no repositório vivo (`eras-do-brasil`):
+os documentos de estudo que deram origem a ele. Os documentos do jogo em si continuam no
+repositório. Os consolidados e o dossiê foram escritos pelo Claude dentro das conversas,
+como documentos do Claude Docs ou arquivos; foram reconstruídos a partir dessas chamadas,
+e cada um diz de onde veio.
 
 ## Pendências
 
@@ -547,7 +641,7 @@ novo:
   — lidos por cima ao confirmar a estrutura da pasta, mas não interpretados linha a
   linha para esta cronologia. Podem ter detalhes complementares aos 12 logs de sessão
   já incorporados.
-- **`Conversas/Claude/`** cobre 59 conversas de dois exports. Do primeiro (203
+- **`Conversas/Claude/`** cobre 72 conversas de três exports. Do primeiro (203
   conversas, até 24/09) entraram 47 julgadas relevantes por um agente de triagem; 27
   ficaram de fora por menção incidental ao nome do jogo. A lista completa ainda existe em
   `/home/sidinei/Documentos/repartir conversas claude/chats/` (fora deste repositório),
@@ -561,13 +655,31 @@ novo:
   NotebookLM), gostos de jogador ("Descobrindo meu arquétipo", Scapewatch, Desktop Raid)
   e pesquisas sem ligação explícita com o Eras (idles de Ragnarok, RavenIdle, React). Nesse export, toda conversa traz um
   snapshot da memória com "Eras do Brasil" e "Escória" — por isso a busca contou só o
-  texto visível da conversa, não a memória injetada.
+  texto visível da conversa, não a memória injetada. Do terceiro (53 conversas, 24/09 a
+  22/10/2026, em `/home/sidinei/Documentos/export-21-10-2026/`) entraram 7 novas, e a
+  "Ansiedade" foi atualizada (207 → 217 mensagens); as demais estavam iguais. Ficaram de
+  fora: Claude Code vs. Claude Chat, automação de um app do SENAR, mapa da Bahia e
+  animação 2D/3D (genérica, sem ligação com o jogo).
 - **A decisão do reset de 03/04/2026** não está em nenhum chat do Claude.ai: entre 28/03
   e 06/04 só há conversas sobre planos do Copilot e do Claude Pro. Ela foi tomada no
   ambiente de código e registrada pelo agente em
   `Artefatos/03-mud-moderno-pre-fusao/eras-do-brasil-game-arquivado/historico/sessions/2026-04-03-reset-reimplementacao-do-zero.md`.
   Se houver um log da extensão do Claude Code ou do Copilot desse dia, é a fonte que
   falta.
+- **Por que o repositório novo de 21/10.** Nenhuma conversa registra a decisão de criar o
+  `eras-do-brasil` de documentação e renomear o TypeScript para `eras-do-brasil-semi-idle`;
+  só o resultado aparece. Também não há confirmação explícita da stack Unity + .NET (os
+  docs a marcam como proposta).
+- **Os zips de documentação do Claude** (`eras-docs.zip`, `-v2`, `-v3`, `eras-progressao.zip`,
+  `eras-tecnico.zip`, `eras-roteiro.zip`, de 21–22/10) eram rascunhos; a versão final está
+  no repositório `eras-do-brasil`. Os rascunhos aparecem só como chamadas de ferramenta na
+  conversa "RavenIdle" e não foram trazidos.
+- **Repositórios ainda não copiados:** `escoria` (e a primeira versão, de 21/08) e o
+  `eras-do-brasil-gdd` com histórico (só a cópia dos arquivos existe, como
+  `gdd-batalha-turno/`). O `eras-do-brasil` atual fica de fora por ser o projeto vivo.
+- **Em aberto no jogo atual:** o nome ("Eternos" foi cogitado, mas colide com Marvel e
+  New World), quem recebeu o presságio, se os Enraizados estão parados no tempo, as eras
+  além da 1, PvP com eco e os números de balanceamento.
 - **`2026-06-23_Acesse a Wiki do albion: https....md`** e
   **`2026-08-10_Full loot em MMORPG solo-dev: balanceando risco e retenção.md`** têm
   `:` no nome do arquivo (herdado do título original da conversa) — funciona

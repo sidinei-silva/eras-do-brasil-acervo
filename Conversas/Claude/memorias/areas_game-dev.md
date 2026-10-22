@@ -1,4 +1,4 @@
-<!-- Memória da conta do Claude · caminho original: /areas/game-dev.md · atualizado em 2026-10-03 · export de 14/10/2026 -->
+<!-- Memória da conta do Claude · caminho original: /areas/game-dev.md · atualizado em 2026-10-03 · export de 21/10/2026 -->
 
 ---
 name: game-dev

@@ -1,4 +1,4 @@
-<!-- Memória da conta do Claude · caminho original: /topics/jogos.md · atualizado em 2026-10-09 · export de 14/10/2026 -->
+<!-- Memória da conta do Claude · caminho original: /topics/jogos.md · atualizado em 2026-10-15 · export de 21/10/2026 -->
 
 ---
 name: jogos
@@ -16,3 +16,6 @@ aliases: [arquétipo, classe favorita, mago]
 - [stated] Histórico de MMOs: no BDO investiu pesado na life skill de cavalos (AFK), mas teve muitas idas e vindas, indecisão eterna de classe e hoje não joga porque o grind exige atenção constante; no Albion adorava o "você é o que veste", a economia e o combate com poucas skills, mas o PvP forçado e o medo de perder itens o afastavam; o New World seria seu MMO definitivo, mas se afastou porque o craft perdeu relevância para drops de dungeon em grupo e o mercado ficou ruim; gostava do combo de Cabal [s:e581350e249b7c38]
 - [stated] Definiu seu ideal idle × ação: progredir AFK com o jogo aberto, sem exigir 100% de atenção, jogar ativamente quando pode e não ser punido por sair de repente [s:e581350e249b7c38]
 - [stated] Jogo de navegador lhe passa estranheza (parece jogo simples); nunca se dedicou a um jogo web e, quando há as duas versões (ex.: Scapewatch), abre muito mais a da Steam [s:e581350e249b7c38]
+- [stated] Tem dificuldade de escolher o que jogar: fica navegando o catálogo da Steam sem engajar, influenciado pelo que está em alta no gênero do momento [s:e581350e249b7c38]
+- [stated] Não gosta de precisar de alts (largou o idle Evitania por isso), de micro-gerenciar time/loot de grupo (estilo Baldur's Gate) nem de ARPG com tela caótica em que mal vê o personagem; gosta da alegria de um drop raro (como no Cabal) e da evolução/troca de classes do Orna [s:e581350e249b7c38]
+- [stated] Em 2023 estava imerso em RPGs de turno (Baldur's Gate 3, Pillars of Eternity, Divinity Original Sin 1 e 2, Wartales); joga à noite olhando a babá eletrônica e pode precisar sair 10 a 20 minutos para ninar o filho [s:e581350e249b7c38]

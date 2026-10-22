@@ -1,0 +1,16 @@
+opencollection: 1.0.0
+info:
+  name: "Eras do Brasil"
+  type: workspace
+
+collections:
+  - name: "Account"
+    path: "collections/Account"
+  - name: "Auth"
+    path: "collections/Auth"
+  - name: "Character"
+    path: "collections/Character"
+
+specs:
+
+docs: ''

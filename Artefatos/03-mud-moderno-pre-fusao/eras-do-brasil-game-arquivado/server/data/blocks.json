@@ -1,0 +1,222 @@
+{
+    "blocks": [
+        {
+            "connections": [
+                {
+                    "terrain": "dense_trail",
+                    "toBlockId": "floresta_do_norte",
+                    "travelMinutes": 25
+                }
+            ],
+            "description": "O último bastião de normalidade na costa. Uma vila colonial erguida às pressas entre pau-a-pique e pedra, onde o cheiro de ferrugem e peixe seco se mistura ao som distante de rezas na capela. Aqui se descansa, se comercia e se ouve os rumores que chegam da mata — mas ninguém dorme em paz desde que a Ruptura abriu.",
+            "id": "vila_sao_tome",
+            "levelRange": {
+                "max": 0,
+                "min": 0
+            },
+            "mobTable": [],
+            "name": "Vila de São Tomé",
+            "region": "mata_costeira",
+            "resources": [],
+            "rules": [
+                {
+                    "description": "Descanso Longo leva ~10 min reais e recupera 100% de Vida e recursos.",
+                    "id": "improved_rest",
+                    "params": {
+                        "recoveryPercent": 100,
+                        "restDurationMinutes": 10
+                    },
+                    "type": "improved_rest"
+                }
+            ],
+            "services": [
+                {
+                    "actions": [
+                        "repair",
+                        "buy_basic_weapons"
+                    ],
+                    "id": "blacksmith",
+                    "name": "Ferreiro"
+                },
+                {
+                    "actions": [
+                        "rumors",
+                        "rest",
+                        "buy_supplies"
+                    ],
+                    "id": "tavern",
+                    "name": "Taverna"
+                },
+                {
+                    "actions": [
+                        "remove_light_curse"
+                    ],
+                    "id": "chapel",
+                    "name": "Capela"
+                }
+            ],
+            "tags": [
+                "safe",
+                "hub",
+                "starter"
+            ],
+            "type": "urban",
+            "pois": [
+                "oficina_do_ferreiro",
+                "casa_do_ferreiro",
+                "taverna_da_vila",
+                "capela",
+                "mercado_central",
+                "portao_da_vila",
+                "quartel_da_guarda",
+                "cabana_da_curandeira"
+            ]
+        },
+        {
+            "connections": [
+                {
+                    "terrain": "dense_trail",
+                    "toBlockId": "vila_sao_tome",
+                    "travelMinutes": 25
+                },
+                {
+                    "terrain": "animal_trail",
+                    "toBlockId": "toca_da_fera",
+                    "travelMinutes": 12
+                }
+            ],
+            "description": "Uma mata densa, antiga e vibrante, onde a luz do sol mal toca o chão. As copas das árvores formam um teto vivo que abafa sons e esconde predadores. Trilhas antigas serpenteiam entre raízes expostas e cipós grossos — quem sai do caminho raramente volta pelo mesmo lugar.",
+            "id": "floresta_do_norte",
+            "levelRange": {
+                "max": 3,
+                "min": 1
+            },
+            "mobTable": [
+                {
+                    "enemyId": "wolf",
+                    "quantity": {
+                        "max": 3,
+                        "min": 1
+                    },
+                    "spawnChance": 0.6
+                },
+                {
+                    "enemyId": "lesser_spirit",
+                    "quantity": {
+                        "max": 1,
+                        "min": 1
+                    },
+                    "spawnChance": 0.35
+                }
+            ],
+            "name": "Floresta do Norte",
+            "region": "mata_costeira",
+            "resources": [
+                {
+                    "gatherDC": 14,
+                    "quantity": {
+                        "max": 3,
+                        "min": 1
+                    },
+                    "rarity": "uncommon",
+                    "resourceId": "iron_wood",
+                    "spawnChance": 0.5
+                },
+                {
+                    "gatherDC": 8,
+                    "quantity": {
+                        "max": 6,
+                        "min": 2
+                    },
+                    "rarity": "common",
+                    "resourceId": "cipo_imbe_fiber",
+                    "spawnChance": 0.8
+                }
+            ],
+            "rules": [
+                {
+                    "description": "Cobertura Natural: todos os personagens ganham +1 de Defesa contra ataques à distância se estiverem a mais de 5 metros do atacante.",
+                    "id": "natural_cover",
+                    "params": {
+                        "condition": "ranged",
+                        "defenseBonus": 1,
+                        "minDistance": 5
+                    },
+                    "type": "natural_cover"
+                }
+            ],
+            "services": [],
+            "tags": [
+                "exploration",
+                "forest"
+            ],
+            "type": "dense_forest"
+        },
+        {
+            "connections": [
+                {
+                    "terrain": "animal_trail",
+                    "toBlockId": "floresta_do_norte",
+                    "travelMinutes": 12
+                }
+            ],
+            "description": "O ar muda antes de chegar. O cheiro de sangue velho e pelo molhado marca o território da Onça Pintada — a predadora espiritual que guarda este trecho da floresta. Carcaças de presas anteriores pendem dos galhos baixos como avisos. Poucos entram. Menos ainda saem sem cicatrizes.",
+            "id": "toca_da_fera",
+            "levelRange": {
+                "max": 4,
+                "min": 3
+            },
+            "mobTable": [
+                {
+                    "enemyId": "onca_pintada",
+                    "quantity": {
+                        "max": 1,
+                        "min": 1
+                    },
+                    "spawnChance": 0.85
+                },
+                {
+                    "enemyId": "wolf",
+                    "quantity": {
+                        "max": 2,
+                        "min": 1
+                    },
+                    "spawnChance": 0.4
+                }
+            ],
+            "name": "Toca da Fera",
+            "region": "mata_costeira",
+            "resources": [
+                {
+                    "gatherDC": 10,
+                    "quantity": {
+                        "max": 3,
+                        "min": 1
+                    },
+                    "rarity": "common",
+                    "resourceId": "cipo_imbe_fiber",
+                    "spawnChance": 0.6
+                }
+            ],
+            "rules": [
+                {
+                    "description": "Território de Predador: testes de furtividade têm CD aumentada. A Onça Pintada recebe Vantagem em iniciativa e pode emboscar personagens que falharem em Percepção.",
+                    "id": "predator_territory",
+                    "params": {
+                        "ambushPerceptionDC": 14,
+                        "predatorInitiativeAdvantage": true,
+                        "stealthDCModifier": 2
+                    },
+                    "type": "predator_territory"
+                }
+            ],
+            "services": [],
+            "tags": [
+                "danger",
+                "boss",
+                "forest"
+            ],
+            "type": "dense_forest"
+        }
+    ]
+}

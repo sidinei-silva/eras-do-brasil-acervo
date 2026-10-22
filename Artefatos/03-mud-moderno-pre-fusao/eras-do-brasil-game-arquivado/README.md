@@ -1,16 +1,44 @@
-# eras-do-brasil-game-arquivado — trechos
+# Eras do Brasil — Game
 
-Repositório de **código** da fase MUD Moderno (servidor Go + cliente web), de 13/03 a
-24/05/2026: [github.com/sidinei-silva/eras-do-brasil-game-arquivado](https://github.com/sidinei-silva/eras-do-brasil-game-arquivado).
-O repositório continua no GitHub; aqui só fica o que não existia em outro lugar deste
-histórico.
+> MUD Moderno (MMORPG server-authoritative) — Servidor Go + Cliente Web
 
-- `historico/sessions/2026-04-03-reset-reimplementacao-do-zero.md` — registro do **reset
-  de 03/04/2026**: todo o código Go do servidor foi apagado para ser reescrito sem IA.
-  O código anterior ficou no commit
-  [`4d64406`](https://github.com/sidinei-silva/eras-do-brasil-game-arquivado/commit/4d644064f2271e1d5116e1fdcdc45ac8ad9524d2)
-  e o reset em si é o commit `c758ac3`.
+## Sobre
 
-Os outros três logs de sessão desse repositório (11/03 e 13/03) já estão em
-`../gdd-batalha-turno/historico/sessions/` — dois são idênticos e o de 11/03 difere só no
-nome de uma função (`Mundo.ProcessarTick()` vs `World.ProcessTick()`).
+Repositório de **código** do projeto Eras do Brasil. Aqui ficam o servidor Go, o cliente web e toda a documentação técnica de desenvolvimento.
+
+O **GDD (Game Design Document)** e o lore estão no repositório [eras-do-brasil-gdd](https://github.com/sidinei-silva/eras-do-brasil-gdd).
+
+## Stack
+
+- **Go 1.22+** — Goroutines para game loop, IA de NPCs e conexões simultâneas
+- **WebSocket** (gorilla/websocket) — Comunicação bidirecional em tempo real
+- **SQLite** (modernc.org/sqlite) — Persistência RAM-First com snapshots async
+- **Cliente Web** — HTML/CSS/JS puro via WebSocket
+
+## Estrutura
+
+```
+├── server/           # Servidor Go (engine, world, combat, economy, etc.)
+├── textClient/       # Cliente web HTML/CSS/JS
+├── decisions/        # ADRs (Architecture Decision Records)
+├── docs/             # Guias e specs de produto
+├── estudos/          # Trilhas de estudo tecnico (Go, arquitetura, pratica)
+├── historico/        # Sessões de trabalho anteriores
+├── ROADMAP.md        # Fases de desenvolvimento
+├── backlog.md        # Tarefas detalhadas
+└── project-status.md # Status atual do projeto
+```
+
+## ADRs
+
+- [ADR-003 — Estratégia de Repositórios](decisions/ADR-003-estrategia-repositorios.md)
+- [ADR-004 — Pivot MMORPG Servidor Go](decisions/ADR-004-pivot-mmorpg-servidor-go.md)
+- [ADR-005 — Arquitetura Monolito + Goroutines + EventBus](decisions/ADR-005-arquitetura-servidor-monolito-goroutines.md)
+- [ADR-006 — Persistência RAM-First + SQLite](decisions/ADR-006-persistencia-ram-first-sqlite.md)
+- [ADR-007 - Estrutura de Pacotes do Servidor — Flat por Domínio](./decisions/ADR-007-estrutura-pacotes-server.md)
+
+## Links
+
+- **GDD & Lore:** [eras-do-brasil-gdd](https://github.com/sidinei-silva/eras-do-brasil-gdd)
+- **Legado (Unity-era):** [ErasDoBrasil-Historico-Legado](https://github.com/sidinei-silva/ErasDoBrasil-Historico-Legado)
+- **Site:** [erasdobrasil.com.br](https://erasdobrasil.com.br)

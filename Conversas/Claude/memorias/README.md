@@ -1,12 +1,12 @@
-# Memórias da conta do Claude (export de 14/10/2026)
+# Memórias da conta do Claude (export de 21/10/2026)
 
 Resumos que o Claude mantém sobre o Sidinei a partir das conversas. São texto **gerado pelo
 Claude**, não escrito pelo Sidinei — servem como retrato do que o Claude "lembrava" do
-projeto em 14/10/2026. Os marcadores `[s:...]` apontam para a conversa de origem.
+projeto em 21/10/2026. Os marcadores `[s:...]` apontam para a conversa de origem.
 
 | Arquivo | O que guarda |
 |---|---|
-| `areas_eras-do-brasil.md` | Estado do Eras em out/2026: repo idle renomeado, repo novo em TypeScript, combate por turno + caçada automática, e a declaração de 14/10 de jogo "totalmente indefinido" |
+| `areas_eras-do-brasil.md` | Estado do Eras em out/2026: repo idle renomeado, repo novo em TypeScript, combate por turno + caçada automática, a declaração de 14/10 de jogo "totalmente indefinido" e as ideias de 15–19/10 (semi-idle, Eternos e Enraizados, eras como expansões, NPCs de vila e viajantes) |
 | `areas_game-dev.md` | Game dev como renda extra, Project "Desenvolvimento de Jogos" e a trilha dos 5 jogos em Godot |
 | `areas_reorganizacao-ia-projetos.md` | As pautas e vereditos de 31/08/2026 (uso de IA, assinaturas, qual projeto, reset do código) e a regra de 08/09 sobre lore feita com IA |
 | `areas_rpg-solo.md` | O terceiro projeto, RPG solo com LLM (PoC de 28/08/2026) |

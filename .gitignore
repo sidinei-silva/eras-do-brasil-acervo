@@ -7,8 +7,8 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Ignorar arquivos do VS Code
-.vscode/
+# Ignorar arquivos do VS Code (só os deste repo; as cópias em Artefatos/ guardam as suas)
+/.vscode/
 
 # Ignorar arquivos do Obsidian
 .obsidian/

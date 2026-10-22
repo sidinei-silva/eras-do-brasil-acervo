@@ -1,31 +1,41 @@
-# Eras do Brasil — Histórico e Legado
+# Eras do Brasil — Acervo
 
-> Arquivo histórico do projeto Eras do Brasil. Contém materiais da era Unity, conversas com IAs, imagens conceituais e documentos substituídos.
+> Acervo do projeto Eras do Brasil: tudo o que foi conversado, decidido, escrito e
+> programado desde a primeira conversa, em julho de 2023, até o recomeço atual —
+> conversas com IAs, documentos de cada fase, cópias completas dos repositórios de código
+> antigos e a linha do tempo que liga tudo isso.
 
 ## Linha do tempo
 
-Para entender de onde o projeto começou e como as decisões foram evoluindo,
-veja [`LINHA-DO-TEMPO.md`](LINHA-DO-TEMPO.md).
+Para entender de onde o projeto começou, por quantas formas ele passou e por quê, veja
+[`LINHA-DO-TEMPO.md`](LINHA-DO-TEMPO.md). A seção "Marcos" resume as 13 roupagens do jogo
+numa tabela.
 
 ## Conteúdo
 
-Organizado em dois eixos: **conversas** (por fonte de IA) e **artefatos** (por era do
-projeto — cada era já foi substituída pela seguinte, então "era anterior" = "histórico").
+Organizado em dois eixos: **conversas** (por fonte) e **artefatos** (por era do projeto
+— cada era foi substituída pela seguinte, então "era anterior" = "histórico").
 
 | Pasta | Descrição |
 |-------|-----------|
-| `Conversas/GPT/` | Conversas com ChatGPT: a origem e a fase de RPG de mesa (2023–2025) e o trilho paralelo ao Claude em ago–set/2026 (servidor da Escória, arte do MVP, a fusão) |
-| `Conversas/Gemini/` | Conversas com Gemini sobre o projeto |
-| `Conversas/Claude/` | Conversas com o Claude (mar–out/2026): arquitetura, GDD, a fusão com a Escória e o recomeço de outubro; em `memorias/`, a memória da conta sobre o jogo |
+| `Conversas/GPT/` | Conversas com o ChatGPT: a origem e a fase de RPG de mesa (2023–2025) e o trilho paralelo ao Claude em ago–set/2026 (servidor da Escória, arte do MVP, a fusão) |
+| `Conversas/Gemini/` | Conversas com o Gemini: fases e ferramentas (nov/2025–fev/2026) e o enredo do mundo (out/2026) |
+| `Conversas/Claude/` | Conversas com o Claude (mar–out/2026); em `memorias/`, a memória da conta sobre o jogo |
 | `Conversas/WhatsApp/` | Prints e transcrição da conversa que deu origem à ideia do jogo (jul/2023) |
-| `Conversas/Copilot/` | Logs de sessões com Copilot (fev–mar/2026): última fase de documentação e o pivô para MUD Moderno |
+| `Conversas/Copilot/` | Logs de sessões com o Copilot (fev–mar/2026): a última fase de documentação e o pivô para MUD Moderno |
 | `Artefatos/01-rpg-de-mesa-e-narrativa/` | GDD inicial (`Livros Antigos/`) e as análises do NotebookLM (2023–jan/2026), quando o jogo ainda era um RPG de mesa/D20 sem código |
-| `Artefatos/02-unity-tatico/` | ADRs e docs técnicos da era em que o jogo era um RPG tático em Unity (`Decisoes Substituidas/`, `Docs Substituidos/`) |
-| `Artefatos/03-mud-moderno-pre-fusao/` | Cópia congelada (`gdd-batalha-turno/`) do repo de GDD do MUD Moderno (servidor Go, D20), o log do reset de 03/04/2026 e o Project do Claude dessa fase |
-| `Artefatos/04-idle-escoria-e-fusao/` | Instruções, documentos e memórias dos Projects do Claude da fase idle: Albion Idle/Outland, A Escória e o Eras fundido (mai–set/2026) |
+| `Artefatos/02-unity-tatico/` | ADRs e docs técnicos da era em que o jogo era um RPG tático em Unity |
+| `Artefatos/03-mud-moderno-pre-fusao/` | MUD Moderno (Go + web, mar–mai/2026): o GDD (`gdd-batalha-turno/`), o código (`eras-do-brasil-game-arquivado/` + histórico completo em `.bundle`) e o Project do Claude da fase |
+| `Artefatos/04-idle-escoria-e-fusao/` | Fase idle (mai–set/2026): o código do Eras fundido (`eras-do-brasil-idle/` + `.bundle`), os Projects do Claude (Albion Idle/Outland, A Escória, Eras) e o consolidado de decisões |
+| `Artefatos/05-semi-idle-typescript/` | O recomeço em TypeScript (03–14/10/2026): o código (`eras-do-brasil-semi-idle/` + `.bundle`) e o consolidado F8 |
+| `Artefatos/06-mmorpg-sandbox-por-turno/` | A fase atual (desde 15/10/2026): o consolidado do estudo de outubro e o brainstorm multiagente que deram origem ao repositório atual |
 | `Imagens/` | Imagens conceituais e referências visuais (sem data confiável por arquivo para atribuir a uma era) |
 
-## Repos Ativos
+Para recuperar um repositório antigo inteiro, com todas as branches e commits:
+`git clone Artefatos/<era>/<repositorio>.bundle <pasta>`.
 
-- **GDD & Lore:** [eras-do-brasil-gdd](https://github.com/sidinei-silva/eras-do-brasil-gdd)
-- **Código do Jogo:** [eras-do-brasil-game](https://github.com/sidinei-silva/eras-do-brasil-game)
+## Projeto atual
+
+- **[eras-do-brasil](https://github.com/sidinei-silva/eras-do-brasil)** — o jogo hoje:
+  MMORPG sandbox por turno para PC. Por enquanto só documentação (pilares, mecânicas,
+  enredo e roteiro), sem código.
