@@ -17,7 +17,14 @@ Projects do Claude:
 | `claude-projects/eras-do-brasil-arquivado-2/` | "Eras do Brasil - Arquivado 2" — o Project do Eras fundido | 13/09 → 03/10/2026 |
 | `claude-projects/eras-do-brasil-2026-09-26/` | "Eras do Brasil" — o Project recriado em 26/09 | 26/09 → set/2026 |
 
-O `consolidado-de-decisoes-versao-idle_2026-10-17.md` resume tudo o que estava decidido nessa fase; foi escrito pelo Claude em 17/10/2026, já depois do fim dela, como referência. Em `eras-do-brasil-2026-09-26/` está também `instrucoes-project-mescladas_2026-09.md`, a instrução que juntou as regras do ChatGPT e do Claude em 25/09.
+Dois consolidados olham a mesma fase por lados diferentes:
+
+| Arquivo | Fonte | O que é |
+|---|---|---|
+| `consolidado-de-decisoes-versao-idle_2026-10-17.md` | as conversas | Tudo o que estava decidido, escrito pelo Claude em 17/10/2026, já depois do fim da fase |
+| `consolidado-do-repo-idle_2026-10-21.md` | o repositório (`cd7409e`) | Resumo navegável da cópia em `eras-do-brasil-idle/`: cada seção aponta o arquivo onde a regra mora. Termina com 7 conflitos entre docs e dados que ficaram sem resolver (C1–C7) |
+
+ Em `eras-do-brasil-2026-09-26/` está também `instrucoes-project-mescladas_2026-09.md`, a instrução que juntou as regras do ChatGPT e do Claude em 25/09.
 
 Cada pasta tem `instrucoes-do-project.md` (as instruções escritas para o Claude) e
 `memoria-do-project.md` (o que o Claude memorizou naquele Project).

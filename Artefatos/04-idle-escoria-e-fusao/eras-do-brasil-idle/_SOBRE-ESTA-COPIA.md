@@ -12,7 +12,9 @@ arquivo é o único acrescentado.
   o projeto recomeçou em TypeScript.
 - **Período:** 12/09 → 26/09/2026, 74 commits. Fatias 1–3 (conta, login, personagem)
   concluídas; a fatia 4 (entrar no mundo) foi mergeada na `main` em 06/10.
-- `WORK_NOTES.md` guarda perguntas de PvP herdadas da Escória que nunca foram resolvidas.
+- `WORK_NOTES.md` (perguntas de PvP herdadas da Escória que nunca foram resolvidas) deixou
+  de ser versionado no commit `aead883`, por isso não está nesta cópia. A versão do disco
+  era idêntica à última commitada: `git show aead883^:WORK_NOTES.md` no bundle.
 
 ## Histórico completo
 
@@ -24,4 +26,17 @@ alterar nenhum hash de commit.
 
 ```bash
 git clone eras-do-brasil-idle.bundle eras-do-brasil-idle
+```
+
+## Trabalho que só existia na máquina
+
+O clone local tinha um `git stash` de 17/09/2026 que nunca foi para o GitHub
+("criando-world-para-entrar-no-mundo", na branch `04-entrar-no-mundo`, sobre o commit
+`d30c70d`): primeiro esboço de mundo/zonas para a fatia 4 (`world.go`, `zone.go`,
+`gamedata/zones.go`, `data/mvp/zones.json`). Foi salvo como
+`../eras-do-brasil-idle_stash-2026-09-17_criando-world.patch`.
+
+```bash
+git clone eras-do-brasil-idle.bundle eras-do-brasil-idle && cd eras-do-brasil-idle
+git checkout d30c70d && git apply ../eras-do-brasil-idle_stash-2026-09-17_criando-world.patch
 ```

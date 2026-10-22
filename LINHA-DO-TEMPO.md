@@ -429,7 +429,9 @@ curtas do Claude e de uma conversa com o Gemini.
 ## Estado real dos repositórios (conferido em 21/10/2026)
 
 Os três repositórios de código anteriores foram **copiados para este acervo** em
-21/10/2026, com o histórico completo em `git bundle`, para poderem ser apagados do GitHub:
+21/10/2026, com o histórico completo em `git bundle`, e os clones locais foram apagados.
+Um `git stash` que só existia no clone do idle (17/09, esboço de mundo/zonas da fatia 4)
+foi salvo como patch ao lado do bundle. A exclusão no GitHub ficou para o Sidinei fazer:
 
 | Repositório | Período | O que é | Onde está agora |
 |---|---|---|---|
@@ -438,7 +440,7 @@ Os três repositórios de código anteriores foram **copiados para este acervo**
 | `escoria` | 21/08 e 31/08 → 10/09/2026 | A Escória / Outlander, em Go | ainda no GitHub, não copiado |
 | `eras-do-brasil-idle` | 12/09 → 26/09/2026, 74 commits | O Eras idle fundido, em Go, MVP "A Travessia" | [`Artefatos/04-idle-escoria-e-fusao/eras-do-brasil-idle/`](Artefatos/04-idle-escoria-e-fusao/eras-do-brasil-idle/_SOBRE-ESTA-COPIA.md) + `.bundle` |
 | `eras-do-brasil-semi-idle` | 05/10 → 14/10/2026, 17 commits | O recomeço em TypeScript (core de combate, playground) | [`Artefatos/05-semi-idle-typescript/eras-do-brasil-semi-idle/`](Artefatos/05-semi-idle-typescript/eras-do-brasil-semi-idle/_SOBRE-ESTA-COPIA.md) + `.bundle` |
-| `eras-do-brasil` | 21/10/2026 → hoje, 1 commit | O atual: só documentação (Obsidian), stack proposta Unity + .NET | no GitHub — **não copiado**, é o projeto vivo |
+| `eras-do-brasil` | 21/10/2026 → hoje, 1 commit | O atual: só documentação (Obsidian), stack proposta Unity + .NET | no GitHub — **não copiado**, é o projeto vivo; retrato em [`consolidado-atual_2026-10-21.md`](Artefatos/06-mmorpg-sandbox-por-turno/consolidado-atual_2026-10-21.md) |
 
 Para recuperar qualquer um deles por inteiro: `git clone <nome>.bundle <pasta>`.
 
@@ -576,15 +578,17 @@ fonte, artefato por era):
 | Conversa com o Gemini sobre lore e enredo (21/10) | `Conversas/Gemini/` |
 | Memórias do jogo atualizadas | `Conversas/Claude/memorias/` |
 | Cópia + histórico completo (`.bundle`) do `eras-do-brasil-game-arquivado` | `Artefatos/03-mud-moderno-pre-fusao/` |
-| Cópia + histórico completo do `eras-do-brasil-idle`; consolidado de decisões da versão idle (17/10); instruções do Project mescladas em 25/09 | `Artefatos/04-idle-escoria-e-fusao/` |
+| Cópia + histórico completo do `eras-do-brasil-idle` (+ patch do stash local); consolidado de decisões da versão idle (17/10); resumo navegável do repo com os conflitos C1–C7 (21/10); instruções do Project mescladas em 25/09 | `Artefatos/04-idle-escoria-e-fusao/` |
 | Cópia + histórico completo do `eras-do-brasil-semi-idle` e o consolidado F8 | `Artefatos/05-semi-idle-typescript/` — **era nova** |
-| Consolidado do estudo de out/2026 e o brainstorm multiagente de 19/10 | `Artefatos/06-mmorpg-sandbox-por-turno/` — **era nova**, a atual |
+| Consolidado do estudo de out/2026, o brainstorm multiagente de 19/10 e o consolidado do repositório atual (21/10, commit `f34acec`) | `Artefatos/06-mmorpg-sandbox-por-turno/` — **era nova**, a atual |
 
 A era atual tem uma pasta só para o que não está no repositório vivo (`eras-do-brasil`):
 os documentos de estudo que deram origem a ele. Os documentos do jogo em si continuam no
 repositório. Os consolidados e o dossiê foram escritos pelo Claude dentro das conversas,
-como documentos do Claude Docs ou arquivos; foram reconstruídos a partir dessas chamadas,
-e cada um diz de onde veio.
+como documentos do Claude Docs ou arquivos. Primeiro foram reconstruídos a partir dessas
+chamadas; depois o Sidinei exportou os originais (o de decisões tinha seções que a
+reconstrução perdera), que entraram no lugar. O dossiê e os resumos do brainstorm continuam
+reconstruídos. Cada arquivo diz de onde veio.
 
 ## Pendências
 

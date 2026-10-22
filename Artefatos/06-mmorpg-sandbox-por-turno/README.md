@@ -15,8 +15,11 @@ que não estão no repositório:
 | Arquivo | O que é |
 |---|---|
 | `consolidado-do-estudo-out-2026.md` | "Eras do Brasil — Consolidado do estudo (out/2026)", escrito pelo Claude em 18–19/10 a partir da sessão de estudo: pilares, motor d20, combate, build, progressão, durabilidade, PvP com eco, mundo, stack, lore, divergências com as fases anteriores e riscos |
+| `consolidado-atual_2026-10-21.md` | Retrato do jogo no repositório `eras-do-brasil` (commit `f34acec`, 21/10) mais as decisões das conversas: pilares, enredo, Travessia em 20 passos, motor d20, combate, ofícios, durabilidade, fases até o MVP, checklists para nova Era/zona/mecânica. Anexo A compara com o F8; Anexo B guarda o rascunho de zonas herdado do F7 |
 | `brainstorm-2026-10-19/dossie-fases.md` | Dossiê com todas as fases do projeto, preparado para o debate entre agentes |
 | `brainstorm-2026-10-19/rodada1-resumo.md` e `rodada2-resumo.md` | Resumos das duas rodadas de debate entre agentes com estilos diferentes sobre enredo, lore e mundo — o resultado não convenceu e levou o Sidinei a escrever o enredo ele mesmo |
 
-Os três documentos foram escritos pelo Claude dentro da conversa "RavenIdle melee vs ranged
-mechanics" e reconstruídos a partir das chamadas de ferramenta registradas no export.
+O consolidado do estudo é o documento exportado do Claude Docs; o dossiê e os resumos foram
+escritos pelo Claude dentro da conversa "RavenIdle melee vs ranged mechanics" e
+reconstruídos a partir das chamadas de ferramenta registradas no export. O consolidado atual
+foi gerado em 21/10 e é a única cópia, dentro do acervo, do estado do repositório vivo.

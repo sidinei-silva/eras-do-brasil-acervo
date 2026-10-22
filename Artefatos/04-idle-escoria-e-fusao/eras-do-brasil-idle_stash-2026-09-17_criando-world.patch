@@ -1,0 +1,398 @@
+diff --git a/backend/internal/bootstrap/world.go b/backend/internal/bootstrap/world.go
+new file mode 100644
+index 0000000..6897397
+--- /dev/null
++++ b/backend/internal/bootstrap/world.go
+@@ -0,0 +1,34 @@
++package bootstrap
++
++import (
++	"eras-do-brasil/internal/game"
++	"eras-do-brasil/internal/gamedata"
++	"fmt"
++)
++
++func buildZone(def gamedata.ZoneDef) (*game.Zone, error) {
++	risk := game.RiskLevel(def.Risk)
++	if !game.ValidRisk[risk] {
++		return nil, fmt.Errorf("zona %s: risco desconhecido %q", def.ID, def.Risk)
++	}
++	return &game.Zone{
++		ID: game.ZoneID(def.ID), Name: def.Name,
++		Tier: def.Tier, Risk: risk, Hub: def.Hub,
++	}, nil
++}
++
++func BuildWorld(zoneMaps []gamedata.ZoneMap) (*game.World, error) {
++	world := game.NewWorld()
++	for _, zm := range zoneMaps {
++		for _, def := range zm.Zones {
++			zone, err := buildZone(def)
++			if err != nil {
++				return nil, err
++			}
++			if err := world.AddZone(zone); err != nil {
++				return nil, fmt.Errorf("%s: %w", zm.Escopo, err)
++			}
++		}
++	}
++	return world, nil
++}
+diff --git a/backend/internal/game/world.go b/backend/internal/game/world.go
+new file mode 100644
+index 0000000..e5b5503
+--- /dev/null
++++ b/backend/internal/game/world.go
+@@ -0,0 +1,38 @@
++package game
++
++import "fmt"
++
++type World struct {
++	Zones map[ZoneID]*Zone
++}
++
++func NewWorld() *World {
++	return &World{Zones: make(map[ZoneID]*Zone)}
++}
++
++func (w *World) AddZone(zone *Zone) error {
++	if zone == nil {
++		return fmt.Errorf("zona é nula")
++	}
++	if _, exists := w.Zones[zone.ID]; exists {
++		return fmt.Errorf("zona %q duplicada", zone.ID)
++	}
++	w.Zones[zone.ID] = zone
++	return nil
++}
++
++func (w *World) Validate() error {
++	for _, zone := range w.Zones {
++		for _, adjacent := range zone.AdjacentZones {
++			if _, exists := w.Zones[adjacent]; !exists {
++				return fmt.Errorf(
++					"zona %s: adjacente %q não existe",
++					zone.ID,
++					adjacent,
++				)
++			}
++		}
++	}
++
++	return nil
++}
+diff --git a/backend/internal/game/zone.go b/backend/internal/game/zone.go
+new file mode 100644
+index 0000000..b63e267
+--- /dev/null
++++ b/backend/internal/game/zone.go
+@@ -0,0 +1,22 @@
++package game
++
++type ZoneID string
++type RiskLevel string
++
++const (
++	RiskSegura    RiskLevel = "segura"
++	RiskDisputada RiskLevel = "disputada"
++	RiskMortal    RiskLevel = "mortal"
++)
++
++var ValidRisk = map[RiskLevel]bool{
++	RiskSegura: true, RiskDisputada: true, RiskMortal: true,
++}
++
++type Zone struct {
++	ID   ZoneID
++	Name string
++	Tier int
++	Risk RiskLevel
++	Hub  bool
++}
+diff --git a/backend/internal/gamedata/loader.go b/backend/internal/gamedata/loader.go
+new file mode 100644
+index 0000000..2d2995a
+--- /dev/null
++++ b/backend/internal/gamedata/loader.go
+@@ -0,0 +1,35 @@
++package gamedata
++
++import (
++	"encoding/json"
++	"fmt"
++	"os"
++	"path/filepath"
++)
++
++func loadJSON[T any](path string) (T, error) {
++	var out T
++	raw, err := os.ReadFile(path)
++	if err != nil {
++		return out, err
++	}
++	err = json.Unmarshal(raw, &out)
++	return out, err
++}
++
++func LoadZoneMaps(dir string) ([]ZoneMap, error) {
++	paths, err := filepath.Glob(filepath.Join(dir, "*_zones.json"))
++	if err != nil {
++		return nil, err
++	}
++
++	maps := make([]ZoneMap, 0, len(paths))
++	for _, path := range paths {
++		zm, err := loadJSON[ZoneMap](path)
++		if err != nil {
++			return nil, fmt.Errorf("carregando %s: %w", path, err)
++		}
++		maps = append(maps, zm)
++	}
++	return maps, nil
++}
+diff --git a/backend/internal/gamedata/zones.go b/backend/internal/gamedata/zones.go
+new file mode 100644
+index 0000000..47c210f
+--- /dev/null
++++ b/backend/internal/gamedata/zones.go
+@@ -0,0 +1,36 @@
++package gamedata
++
++type ZoneMap struct {
++	ID          string          `json:"id"`
++	Scope       string          `json:"scope"`
++	ContinentID string          `json:"continentId"`
++	EraID       *string         `json:"eraId"`
++	Zones       []ZoneDef       `json:"zones"`
++	Camps       []CampDef       `json:"camps"`
++	Connections []ConnectionDef `json:"connections"`
++}
++
++type ZoneDef struct {
++	ID        string        `json:"id"`
++	Name      string        `json:"name"`
++	RegionID  *string       `json:"regionId"`
++	Tier      int           `json:"tier"`
++	Risk      string        `json:"risk"`
++	FactionID *string       `json:"factionId"`
++	Hub       bool          `json:"hub"`
++	Spawn     bool          `json:"spawn"`
++	Services  []string      `json:"services"`
++	Resources []ResourceRef `json:"resources"`
++	Camps     []string      `json:"camps"`
++	BossID    *string       `json:"bossId"`
++}
++
++type CampDef struct {
++	ID      string   `json:"id"`
++	Name    string   `json:"name"`
++	ZoneID  string   `json:"zoneId"`
++	MobIDs  []string `json:"mobIds"`
++	SizeMin int      `json:"sizeMin"`
++	SizeMax int      `json:"sizeMax"`
++	EliteID *string  `json:"eliteId"`
++}
+diff --git a/data/mvp/zones.json b/data/mvp/zones.json
+new file mode 100644
+index 0000000..578d74d
+--- /dev/null
++++ b/data/mvp/zones.json
+@@ -0,0 +1,197 @@
++{
++  "schemaVersion": 1,
++  "id": "zones-mvp",
++  "scope": "mvp",
++  "continentId": "continent-a-travessia",
++  "eraId": null,
++  "note": "A ilha do tutorial. Nao pertence a era nenhuma e nao se volta a ela. Mesmo esquema de era-1: zona lista recursos por material e acampamentos por id; o acampamento e dono da composicao e mora aqui, no mapa.",
++  "regions": [],
++  "zones": [
++    {
++      "id": "zone-a-beira",
++      "name": "A Beira",
++      "regionId": null,
++      "tier": 1,
++      "risk": "segura",
++      "factionId": null,
++      "hub": false,
++      "spawn": true,
++      "services": [],
++      "albionEquivalent": "The Lighthouse",
++      "description": "Faixa de praia onde a Raiz deposita quem não é daqui. Sem estrutura e sem ninguém além do Língua.",
++      "resources": [
++        {
++          "materialId": "mat-seixo-de-praia",
++          "abundance": "primary"
++        },
++        {
++          "materialId": "mat-pau-mole",
++          "abundance": "primary"
++        },
++        {
++          "materialId": "mat-couro-de-capivara",
++          "abundance": "secondary"
++        }
++      ],
++      "camps": ["camp-caranguejal", "camp-cascalho-solto"],
++      "bossId": "mob-o-primeiro-perdido"
++    },
++    {
++      "id": "zone-porto-de-passagem",
++      "name": "Porto de Passagem",
++      "regionId": null,
++      "tier": 1,
++      "risk": "segura",
++      "factionId": null,
++      "hub": true,
++      "spawn": false,
++      "services": ["market", "forge", "refinery", "rest", "storage", "trade"],
++      "albionEquivalent": "The Cove",
++      "description": "Vila de quem espera a travessia. Mercado, estações e a Barqueira.",
++      "resources": [],
++      "camps": [],
++      "bossId": null
++    },
++    {
++      "id": "zone-mata-revirada",
++      "name": "Mata Revirada",
++      "regionId": null,
++      "tier": 2,
++      "risk": "segura",
++      "factionId": null,
++      "hub": false,
++      "spawn": false,
++      "services": [],
++      "albionEquivalent": "The Forgotten Woods",
++      "description": "Mata que a Raiz embaralhou: árvore de três eras no mesmo terreno.",
++      "resources": [
++        {
++          "materialId": "mat-pau-brasil",
++          "abundance": "primary"
++        },
++        {
++          "materialId": "mat-couro-de-veado",
++          "abundance": "primary"
++        },
++        {
++          "materialId": "mat-seixo-de-praia",
++          "abundance": "secondary"
++        }
++      ],
++      "camps": ["camp-copa-revirada", "camp-perdidos-da-mata"],
++      "bossId": null
++    },
++    {
++      "id": "zone-pedreira-torta",
++      "name": "Pedreira Torta",
++      "regionId": null,
++      "tier": 2,
++      "risk": "segura",
++      "factionId": null,
++      "hub": false,
++      "spawn": false,
++      "services": [],
++      "albionEquivalent": "Mountain Fort",
++      "description": "Corte de pedra que ninguém terminou. Fibra e minério.",
++      "resources": [
++        {
++          "materialId": "mat-algodao-bravo",
++          "abundance": "primary"
++        },
++        {
++          "materialId": "mat-ferro-de-brejo",
++          "abundance": "primary"
++        },
++        {
++          "materialId": "mat-couro-de-capivara",
++          "abundance": "secondary"
++        }
++      ],
++      "camps": ["camp-perdidos-do-corte", "camp-boca-da-fenda"],
++      "bossId": null
++    }
++  ],
++  "camps": [
++    {
++      "id": "camp-caranguejal",
++      "name": "Caranguejal",
++      "zoneId": "zone-a-beira",
++      "mobIds": ["mob-caranguejo-da-beira"],
++      "sizeMin": 2,
++      "sizeMax": 3,
++      "eliteId": null
++    },
++    {
++      "id": "camp-cascalho-solto",
++      "name": "Cascalho solto",
++      "zoneId": "zone-a-beira",
++      "mobIds": ["mob-cascalho-vivo"],
++      "sizeMin": 2,
++      "sizeMax": 3,
++      "eliteId": null
++    },
++    {
++      "id": "camp-copa-revirada",
++      "name": "Copa revirada",
++      "zoneId": "zone-mata-revirada",
++      "mobIds": ["mob-macaco-revirado"],
++      "sizeMin": 2,
++      "sizeMax": 4,
++      "eliteId": null
++    },
++    {
++      "id": "camp-perdidos-da-mata",
++      "name": "Acampamento dos Perdidos",
++      "zoneId": "zone-mata-revirada",
++      "mobIds": ["mob-perdido"],
++      "sizeMin": 2,
++      "sizeMax": 3,
++      "eliteId": null
++    },
++    {
++      "id": "camp-perdidos-do-corte",
++      "name": "Perdidos do corte",
++      "zoneId": "zone-pedreira-torta",
++      "mobIds": ["mob-perdido"],
++      "sizeMin": 2,
++      "sizeMax": 3,
++      "eliteId": null
++    },
++    {
++      "id": "camp-boca-da-fenda",
++      "name": "Boca da fenda",
++      "zoneId": "zone-pedreira-torta",
++      "mobIds": ["mob-morcego-da-torta"],
++      "sizeMin": 3,
++      "sizeMax": 4,
++      "eliteId": null
++    }
++  ],
++  "connections": [
++    {
++      "id": "conn-mvp-001",
++      "from": "zone-a-beira",
++      "to": "zone-porto-de-passagem",
++      "travelMinutes": 6
++    },
++    {
++      "id": "conn-mvp-002",
++      "from": "zone-porto-de-passagem",
++      "to": "zone-mata-revirada",
++      "travelMinutes": 8
++    },
++    {
++      "id": "conn-mvp-003",
++      "from": "zone-porto-de-passagem",
++      "to": "zone-pedreira-torta",
++      "travelMinutes": 8
++    },
++    {
++      "id": "conn-mvp-004",
++      "from": "zone-mata-revirada",
++      "to": "zone-pedreira-torta",
++      "travelMinutes": 10
++    }
++  ],
++  "noteGate": "Conexoes nao travam sozinhas. O que libera cada caminho e um passo do tutorial (ver mvp_tutorial.json), e no futuro sera missao. Assim o gate e um sistema so, e nao um campo que aparece numa conexao de um mapa e em nenhuma outra."
++}

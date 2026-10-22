@@ -1,6 +1,8 @@
 # Eras do Brasil — Consolidado do estudo (out/2026)
 
-> Documento do Claude Docs reconstruído a partir das chamadas de edição registradas na conversa "RavenIdle melee vs ranged mechanics" (export do Claude de 21/10/2026). Escrito pelo Claude entre 2026-10-19 e 2026-10-19; seções na ordem em que foram escritas, com a última versão de cada uma. Uma edição pontual de frase ("a rede só entra na quinta" [fatia]) não pôde ser encaixada no lugar exato e foi omitida; o mesmo conteúdo aparece na tabela de riscos.
+Oct 18, 2026 · @Sidinei
+
+> Documento do Claude Docs escrito pelo Claude em 18–19/10/2026 na conversa "RavenIdle melee vs ranged mechanics", exportado pelo Sidinei em 19/10/2026.
 
 ## Escopo e legenda
 
@@ -296,7 +298,7 @@ Os NPCs ganham vida em degraus de custo crescente; para o MVP, os degraus 1 e 2,
 
 Cada zona tem duas camadas, a visual (cena do Unity, só no cliente) e a lógica (JSON, lida pelo servidor e pelo cliente), e o mundo é feito de zonas ligadas por saídas, como no Albion (Proposto).
 
-| | Camada visual | Camada lógica |
+|  | Camada visual | Camada lógica |
 | --- | --- | --- |
 | O que é | Terreno, árvores, casas, iluminação | Onde se anda, nós de coleta, surgimento de monstros, NPCs, saídas |
 | Onde vive | Cena do Unity | `data/` (JSON) |
@@ -306,7 +308,7 @@ Cada zona tem duas camadas, a visual (cena do Unity, só no cliente) e a lógica
 
 Mesmo com o jogador andando livre na tela, cada zona tem por baixo um grid (ex.: casas de 1 metro) com: se dá para andar, altura e se bloqueia a visão. Isso permite:
 
-1. Validar o movimento no servidor (busca de caminho A*).
+1. Validar o movimento no servidor (busca de caminho A\*).
 2. Linha de visão e furtividade como dado por casa.
 3. Combate no próprio lugar: o servidor recorta o grid ao redor do encontro e usa como arena.
 
@@ -377,7 +379,7 @@ Uma conexão persistente e bidirecional, com três tipos de mensagem:
 
 ## Processo: fatias e método de estudo
 
-O caminho até o MVP tem oito fatias, cada uma terminando com algo jogável ou testável, e a rede só entra na quarta (Proposto).
+O caminho até o MVP tem oito fatias, cada uma terminando com algo jogável ou testável, e a rede só entra na quinta (Proposto).
 
 1. **Núcleo sem tela:** simulador de console com d20, graus, 3 ações, penalidade de ataque múltiplo, grid, ataque de oportunidade, semente e registro de eventos. Mil lutas sozinhas.
 2. **Combate visível:** no Unity, uma arena, dois personagens, uma arma; o cliente anima o registro de eventos. Jogável no manual.

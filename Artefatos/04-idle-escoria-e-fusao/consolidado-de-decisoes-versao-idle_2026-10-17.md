@@ -1,6 +1,8 @@
-# Eras do Brasil — Consolidado de decisões (versão idle)
+# Eras do Brasil — Consolidado de decisões
 
-> Documento do Claude Docs reconstruído a partir das chamadas de edição registradas na conversa "Consolidado do jogo" (export do Claude de 21/10/2026). Escrito pelo Claude entre 2026-10-17 e 2026-10-17; seções na ordem em que foram escritas, com a última versão de cada uma.
+Oct 17, 2026 · @Sidinei
+
+> Documento do Claude Docs escrito pelo Claude em 17/10/2026 na conversa "Consolidado do jogo", exportado pelo Sidinei em 21/10/2026. Resume as decisões da versão idle (set/2026) a partir das conversas.
 
 ## Escopo e fontes
 
@@ -64,6 +66,47 @@ A lore é mínima de propósito: **lore é puxada, não empurrada** — escreve-
 ### Abandonado (não reintroduzir)
 
 Jogador como escolhido; identidade de jogador derivada de um "Eco" (Ecos é outro sistema, de temporadas); Dom da Revivência; ritual de 1497; Mata Costeira como estrutura do tutorial; Vila de São Tomé. Tudo isso vem do GDD legado com classes por origem.
+
+## Estrutura do mundo
+
+O mundo tem três continentes e a **zona é a unidade de tudo**: recurso, risco, facção, mob e viagem. Cidade também é zona.
+
+&#91;embedded content: estrutura do mundo · 3 continentes\]
+
+### Continentes (Dado: `continents.json`)
+
+| Continente | Tiers | Bandas de risco | Papel |
+| --- | --- | --- | --- |
+| A Travessia | T1–T2 | segura | ilha tutorial, descartável; não pertence a era nem ao Emaranhado |
+| As Eras | T1–T6 | segura, disputada, mortal | mundo principal; eras lado a lado ao redor do Coração da Raiz |
+| O Emaranhado | T6–T8 | selvagem | eras misturadas, sem hub fixo, PvP aberto; muito posterior ao lançamento |
+
+### Bandas de risco
+
+| Banda | Regra | Onde |
+| --- | --- | --- |
+| Segura | sem PvP | toda a Travessia e as bordas das eras |
+| Disputada | PvP consentido, perda parcial | meio das eras |
+| Mortal | PvP consentido, perda total | fundo das eras, perto do centro |
+| Selvagem | PvP aberto, perda total | só no Emaranhado |
+
+### Hierarquia: continente → era → região → zona
+
+- **Continente** agrupa eras e define a faixa de tier e as bandas possíveis.
+- **Era** é um cluster de zonas de um período histórico. Era 1 = Descoberta e Colonização (1500–1654).
+- **Região** é só rótulo de bioma. **Nenhuma regra lê `regionId`** (Decisão).
+- **Zona** carrega tier, risco, facção, recursos, acampamentos, chefe e serviços.
+- **Conexão** liga duas zonas com `travelMinutes`. Viagem consome minutos reais.
+
+### Regras estruturais (Decisões)
+
+- Continente, era, região, tier e risco são **cinco campos independentes**; nenhum é derivado de outro.
+- Toda zona tem **pelo menos dois caminhos**, para não virar corredor.
+- **Facção é definida por zona**, não por região. Nenhuma facção tem duas zonas seguidas no mesmo tier.
+- Fórmula de zona (do Albion): **fauna em qualquer lugar + uma facção de mob definida pelo bioma**. `factionId` é quem controla; `mobFactionId` é quem nasce. Divergem numa zona tomada.
+- **O Coração da Raiz é passagem, não destino**: cidade segura no centro, cercada de zona mortal, e por ela se chega ao segundo continente.
+- A geografia **não reproduz o mapa do Brasil**; é consequência da Ruptura.
+- Gate de caminho é responsabilidade do tutorial/missão, nunca um campo solto na conexão.
 
 ## A Travessia (MVP)
 
@@ -379,7 +422,7 @@ Dois caminhos, como no Albion: craftar com recurso já encantado, ou subir o ní
 
 - Desgaste: morte tira 5%; uso tira 1 ponto a cada 400 ações; fuga fracassada também desgasta.
 - Efeito: 100–50% nenhum; 49–25% −100 IP; 24–10% −200 IP; abaixo de 10% inutilizável. Ferramentas não perdem IP; a bolsa desgasta.
-- Conserto por ponto cresce ~2,4× por tier (10 no T1 a 840 no T6), mesma taxa da prata que os mobs soltam (15 a 1.194).
+- Conserto por ponto cresce \~2,4× por tier (10 no T1 a 840 no T6), mesma taxa da prata que os mobs soltam (15 a 1.194).
 
 ### Carga, viagem e teleporte
 
@@ -496,7 +539,7 @@ Particionamento e sharding; transação e outbox; formato de wire do WebSocket; 
 ### Regras principais
 
 - 1 unidade Godot = 1 metro; personagem 1,8 u; tile 2×2 u; grade de 0,5 u.
-- Proporção de ~6 cabeças. **Em aberto:** chibi de 2,5–3 cabeças, após feedback de amigos (15/09/2026). Até decidir, 6 cabeças é a referência.
+- Proporção de \~6 cabeças. **Em aberto:** chibi de 2,5–3 cabeças, após feedback de amigos (15/09/2026). Até decidir, 6 cabeças é a referência.
 - Leitura: silhueta → cor → equipamento → detalhe. Um esqueleto humano compartilhado; sockets para mão principal, secundária, cabeça, torso, pés e costas.
 - Progressão de tier por forma, proporção, material e acabamento, sem remodelar a peça. Raridade por ícone, borda, brilho e acento.
 - Criaturas sobrenaturais com linguagem própria, nunca monstro de fantasia medieval europeia. Nada de castelos nem UI dourada.
@@ -593,7 +636,7 @@ Oito pontos onde docs e dados não batem, ou onde a decisão ficou explicitament
 
 | # | Onde | O que diverge |
 | --- | --- | --- |
-| 1 | Fama por nível | `formulas-e-balanceamento.md` usa 3.000 × 6^(N−1) (3.000, 18.000…); `progression.json` usa ~3.600 × 6^(N−1) (3.600, 22.000…) |
+| 1 | Fama por nível | `formulas-e-balanceamento.md` usa 3.000 × 6^(N−1) (3.000, 18.000…); `progression.json` usa \~3.600 × 6^(N−1) (3.600, 22.000…) |
 | 2 | Coração da Raiz | a Decisão diz cidade segura no centro, cercada de zona mortal; em `design/era-1/zones.json`, A Raiz é zona T6 **mortal**, sem serviços, com chefe e passagem para o Emaranhado (os serviços estão no NPC A Voz na Borda) |
 | 3 | Tier inicial da Costa | a Decisão da Travessia diz que a Costa "pode começar em T2"; os dados da Era 1 ainda têm quatro zonas T1 na Costa |
 | 4 | Resíduo de turno | Ipupiara anula fuga "a cada três turnos" e a poção tem `cooldownTicks`, mas o combate não tem turno nem tick |
