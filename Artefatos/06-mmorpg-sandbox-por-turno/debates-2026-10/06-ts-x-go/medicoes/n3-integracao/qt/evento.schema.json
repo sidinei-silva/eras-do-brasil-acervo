@@ -1,0 +1,4 @@
+{"$schema":"http://json-schema.org/draft-07/schema#","title":"Evento","oneOf":[
+ {"type":"object","title":"Dano","properties":{"tipo":{"const":"dano"},"seq":{"type":"integer"},"alvo":{"type":"string"},"valor":{"type":"integer"}},"required":["tipo","seq","alvo","valor"],"additionalProperties":false},
+ {"type":"object","title":"Movimento","properties":{"tipo":{"const":"movimento"},"seq":{"type":"integer"},"de":{"type":"integer"},"para":{"type":"integer"}},"required":["tipo","seq","de","para"],"additionalProperties":false}
+]}

@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "Evento": {
+            "title": "Evento",
+            "anyOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "tipo": {
+                            "type": "string",
+                            "enum": [
+                                "dano"
+                            ],
+                            "title": "tipo"
+                        },
+                        "seq": {
+                            "type": "number",
+                            "title": "seq"
+                        },
+                        "alvo": {
+                            "type": "string",
+                            "title": "alvo"
+                        },
+                        "valor": {
+                            "type": "number",
+                            "title": "valor"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "alvo",
+                        "seq",
+                        "tipo",
+                        "valor"
+                    ]
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "tipo": {
+                            "type": "string",
+                            "enum": [
+                                "movimento"
+                            ],
+                            "title": "tipo"
+                        },
+                        "seq": {
+                            "type": "number",
+                            "title": "seq"
+                        },
+                        "de": {
+                            "type": "number",
+                            "title": "de"
+                        },
+                        "para": {
+                            "type": "number",
+                            "title": "para"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "de",
+                        "para",
+                        "seq",
+                        "tipo"
+                    ]
+                }
+            ]
+        }
+    }
+}

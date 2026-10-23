@@ -1,0 +1,642 @@
+## Rodada 2: conversa
+
+---
+
+### N4 (rodada 2)
+
+# N4 (moderação): rodada 2
+
+Lembrete: a escolha precisa durar até a fase jogável, porque antes disso a stack não se rediscute. A dúvida Go × TS já voltou 7 vezes. Quem só empilha vantagem técnica não está respondendo à pergunta do debate.
+
+## Perguntas ainda sem resposta boa
+
+**Lado Go**
+- **Número de noites até a noite 5 em Go** (minha P1): ninguém deu.
+  - O GO1 admitiu que o código pós-reset usa `math/rand` global e não tem teste.
+  - O GO3 afirmou que esse código é do dono, mas não mostrou trecho.
+- **Condição para aceitar o TS** (minha P3): só o GO4 respondeu. O GO2 disse "baixa, mas não zero" e não deu nenhuma condição.
+- **N2 → GO1:** eventos com o JSON do contrato em 10 linhas, e quanto disso é cerimônia que o dono vai acabar pedindo à IA. Ninguém mostrou ainda.
+
+**Lado TS**
+- **Que razão do TS sobra com o cliente Unity** (minha P2): o TS3 respondeu "playground nativo". Só que o N3 mostrou que o playground pode ser cliente WebSocket do servidor local, e aí essa vantagem some.
+- **O que impede outro `position.ts`:** ninguém deu um mecanismo. O TS4 deu condições (`tsc --noEmit` strict desde a noite 1). Falta o TS1, o TS2 e o TS3 assinarem embaixo.
+- **Condição para aceitar o Go:** o TS2 diz "3 de 10" e não dá nenhuma.
+
+## Argumentos que já empataram (peso zero daqui em diante)
+
+| Argumento | Por que empatou |
+|---|---|
+| Performance | O N1 mediu: 1.000 lutas levam 29 ms contra 2 ms. Os dois são instantâneos. |
+| Hospedagem e memória | A diferença de RAM (N1, N3) não muda o preço da VPS. |
+| Teste por tabela | Admitido pelos dois lados. |
+| Longevidade, ecossistema, ajuda de IA | Medidos pelo MK3; os benchmarks dão empate. |
+| Contrato com C# | O N3 mostrou que o quicktype achata a união nos dois, e o C# custa igual. |
+| "Sem framework" | Nenhum dos dois tem WebSocket na biblioteca padrão (N3). |
+| Imutabilidade | O `Readonly` é raso e o slice do Go compartilha memória. A correção é a mesma nos dois: um teste que prova que a entrada não mudou. |
+| Carreira | O MK1 chamou de "quase neutra". O retorno duplo do Go existe, mas é marginal. |
+| Eventos (TS) × inteiros (Go) | Cada lado admitiu a fraqueza e a remendou com linter (`exhaustive` ou lint de `/`). É disciplina compensando a linguagem dos dois lados, e isso se anula. |
+
+Argumentos fora do assunto:
+- "A Microsoft reescreveu o compilador do TS em Go" (GO2): fala de compilador, não de servidor de jogo.
+- "Go é bom para proxy HTTP" (TS2): retórica.
+
+## O que ainda decide
+
+1. **Autoria, pela prova do acervo** (N2):
+   - em Go foram cerca de 55 commits à mão em 7 semanas, com 0 testes;
+   - em TS foi 1 commit à mão, e a IA tomou o núcleo em 2 noites.
+
+   Esse é o dado mais forte do debate até aqui, e ele pende para o Go. A fadiga de abril pende para o TS.
+2. **Tempo até a noite 5.** É a vantagem de fluência do TS, mas ninguém mediu. Adoto o **teste de 1 noite do TS4**: o dono escreve à mão o mesmo `aplicar(ataque)` nas duas linguagens. Proponho que esse teste vire o desempate oficial.
+3. **Portas de ferramental.** No acervo TS, o `packages/core` não tinha `tsconfig`, o projeto tinha 3 configs e ainda mise. No Go havia 1 dependência. Para quem troca de stack, cada porta aberta conta.
+4. **Distribuição.** Vantagem real do Go (5,8 MB contra 86 MB, e o SEA ainda é experimental), mas só pesa na fase 5.
+
+## Cobranças
+
+1. **TS1, TS2, TS3:** pelos commits, foram 7 semanas escrevendo Go à mão contra 2 noites até a IA tomar o TS. Com que prova o TS é a linguagem da autoria? E vocês se comprometem, por escrito, com `tsc --noEmit` strict e com um core sem monorepo desde a noite 1? Sim ou não.
+2. **GO1, GO2:** vocês aceitam o teste de 1 noite do TS4 como desempate? Se a versão em Go levar o dobro de tempo, aceitam o TS? E digam o número de noites até a noite 5. Quem não der o número estará defendendo o time, não o dono.
+
+---
+
+### TS1 (rodada 2)
+
+# TS1 — rodada 2
+
+## Respostas
+
+Uma proposta única responde boa parte das perguntas: **duas travas no laço de teste, que a IA escreve uma vez.**
+```ts
+const entrada = deepFreeze(caso.estado);            // ESM é strict: mutar lança TypeError
+const { estado } = aplicar(entrada, caso.acao);
+expect(soInteiros(estado)).toBe(true);              // percorre o JSON: Number.isSafeInteger em todo número
+expect(aplicar(entrada, caso.acao)).toEqual(aplicar(entrada, caso.acao)); // replay
+```
+
+**@N2:** "`initializeCombat` muta a entrada; o que impede isso na noite 3?" Confirmo: `spawnCombatants` faz `combatant.position = ...` na entrada (`.../semi-idle/packages/core/combat/spawn.ts`). O `readonly` raso não pega isso. O `deepFreeze` acima pega no primeiro teste. Setup de uma noite: 1 `package.json`, 1 `tsconfig`, Vitest, sem monorepo.
+
+**@GO1 / @TS2 / @MK3:** "2^53, `Math.random`, branded `Int`?" Nada de branded. `soInteiros` no laço e uma regra de lint só: `no-restricted-properties` para `Math.random` e `Date.now`. Custa ~10 linhas, escritas uma vez.
+
+**@GO2 / @TS4 / @MK3:** "qual tsconfig e quem roda `tsc`?" Aceito (TS4): `strict`, `noUncheckedIndexedAccess`, `module: nodenext`, `noEmit`. O script `test` é `tsc --noEmit && vitest run`. O tipo é checado a cada teste. Ninguém precisa lembrar de rodar. Versão do TS, do Node LTS e do Vitest travadas no `package.json` até a fase 5.
+
+**@GO3:** "runtime, runner e noites de configuração?" Node LTS via `mise.toml`, Vitest e workspaces. A configuração entrou em 10/10 às 23h14 (`af9443e`) e a primeira regra em 11/10 às 20h23 (`da17716`). Foi uma noite de configuração. Antes disso foram 5 noites de documentação, que não são culpa da linguagem.
+
+**@N1:** "`bigint` ou `>>> 0`, e como ele percebe que esqueceu?" `number` com `>>> 0` (código na r1). `bigint` não serializa em JSON. Ele percebe pelo `soInteiros` e por um teste fixo: a semente 42 dá a sequência X. Se esquecer o `>>> 0`, a sequência muda e o teste quebra.
+
+**@N3:** "qual runtime vai no Steam e o contrato garante `integer`?" Node SEA se estiver estável na fase 5. Se não estiver, `node.exe` junto do `.js`. É mais pesado que Go, admito. Para o contrato, o JSON Schema escrito à mão é a fonte, com `"type": "integer"`, e o C# lê `int`.
+
+**@MK1:** "a vantagem de IA do TS vale aqui?" Pouco. Se a IA não escreve o núcleo, só sobra revisão. Retiro esse argumento.
+
+**@MK2:** "hospedagem sem plataforma e RAM?" VPS comum, o processo sob `systemd`, Postgres ao lado. N1 mediu ~45 MB contra ~7 MB (`scratchpad/n1bench`). Os dois cabem em 1 GB.
+
+**@N4:** "que razão sobrevive com Unity e o que impede outro `position.ts`?" Sobrevivem a fluência, a união discriminada e o playground rodando o mesmo núcleo sem WASM. A linguagem não impede outro `position.ts`. Quem impede é a regra do roteiro. **Gatilho do acervo:** a IA escreveu o núcleo. Menos atrito na linguagem foco reduz a vontade de delegar, e isso é opinião minha. **Fato que me faria aceitar Go:** se o setup em TS passar de uma noite, ou se ele explicar o `aplicar` em Go linha por linha mais rápido do que em TS.
+
+## Réplicas
+- **GO1:** "Struct passada por valor já é cópia. O cuidado está em slice e map." Concordo. Spread em TS também é raso. É o mesmo cuidado nas duas, e por isso o `deepFreeze` vale mais que o argumento de linguagem.
+- **N1:** "iterar `map` tem ordem aleatória [em Go]". Em TS, `Object.keys` com chave numérica também reordena. O teste de replay do laço acima serve para as duas linguagens.
+
+## Concessão
+A vantagem de IA não pesa aqui (MK1). Também cedo que meu "`Readonly` impede mutação" era fraco: só o `deepFreeze` em tempo de execução garante.
+
+## Pergunta
+**GO2:** você aceita as mesmas travas no lado Go (replay, `soInteiros`, nada de `map` no estado)? Se sim, sobra alguma diferença no núcleo além da distribuição?
+
+---
+
+### GO1 (rodada 2)
+
+# GO1, rodada 2
+
+## Respostas
+
+**@N4:** "trecho que seja dele e noites até a noite 5". Commit `79bcee4` (20/04, sem coautor), `server/world/game_time.go`: `func (gt *GameTime) AdvanceTime(...)` muda o próprio objeto pelo ponteiro. A versão pura (`CalculatePeriodOfDay`) só apareceu no commit seguinte, que tem o Copilot como coautor. Então o estilo dele em Go é mutar. Estimativa (opinião): Go chega à noite 5 na noite 6 ou 7; TS chega na 5.
+**@N4 (os dois lados):** o gatilho do acervo é "IA escreveu o núcleo". Go não impede isso. Eu aceito TS se, numa noite de teste, ele não conseguir escrever em Go, sem pedir código, um `aplicar` de 1 ataque com 3 casos na tabela.
+
+**@TS1:** "como o compilador impede `append` no slice que entrou?" Não impede. Fica a cargo do teste: o laço da tabela compara a entrada antes e depois com `reflect.DeepEqual`. Isso é escrito uma vez e roda em todo caso.
+
+**@TS2 e @TS3:** "exaustividade sem linter?" Não existe. Admito: é ferramenta compensando a linguagem. O custo é pequeno, sem golangci-lint: `type Tipo string` com constantes e `go run github.com/nishanths/exhaustive/cmd/exhaustive ./...` no Makefile. Leva meia noite, não várias.
+
+**@N2 e @N3:** "eventos com JSON; struct achatada ou interface?" Achatada. Não tem `MarshalJSON` nem type switch, e no C# vira uma classe espelho com uns 15 linhas.
+```go
+type Tipo string
+const (Ataque Tipo = "ataque"; Dano Tipo = "dano"; Movimento Tipo = "movimento"; Reacao Tipo = "reacao")
+type Evento struct {
+    Seq   int    `json:"seq"`
+    Tipo  Tipo   `json:"tipo"`
+    De    int    `json:"de,omitempty"`
+    Alvo  int    `json:"alvo,omitempty"`
+    Valor int    `json:"valor,omitempty"`
+    Para  *Casa  `json:"para,omitempty"`
+}
+```
+O preço: nada amarra que campo pertence a qual tipo. Nisso a união do TS é melhor.
+
+**@TS4 e @MK1:** "o que o projeto acrescenta à carreira?" Função pura, teste por tabela e determinismo, coisas que o trabalho talvez não peça. A volta também vale: as 8h diárias de Go tiram o atrito de sintaxe à noite. Peso baixo, 10% no máximo.
+
+**@N1:** "como evitar `range` sobre `map`?" A regra é não ter `map` no `Estado`, só slice ordenado. Além disso, um teste de replay roda 1.000 sementes duas vezes e compara o hash. Como o Go embaralha a ordem do `map` de propósito, o erro aparece no teste em vez de aparecer na luta 700.
+
+**@MK2:** "migrar para o Nakama?" Não migraria antes de existir necessidade. Se migrar, `regras/` entra sem reescrita, porque é um pacote puro. Só o `server/` muda.
+
+## Réplicas
+
+**TS1:** "`Readonly` faz o compilador recusar a mutação." `DeepReadonly` não vem no TS: ou ele escreve um tipo recursivo, ou instala biblioteca. E o commit `da17716` dele muta a entrada (N2). Nas duas linguagens quem segura isso é o teste.
+
+**TS2:** "Para um jogo Steam [...] a diferença não importa." Concordo sobre os MB. O que importa são os passos de build, e isso só pesa na fase 5.
+
+## Concessão
+Baixo o peso da distribuição: N1 e TS1 mostraram que ela não decide nada antes da fase 5. E o `game_time.go` derruba o meu argumento de que o Go dele já estaria pronto. As duas linguagens começam do mesmo músculo, que está faltando (N2).
+
+## Pergunta
+**TS1:** mostre em até 10 linhas o `DeepReadonly` que ele escreveria sem biblioteca. Se o tipo vier do `type-fest`, ele entende o tipo do próprio estado?
+
+---
+
+### TS2 (rodada 2)
+
+# TS2 — rodada 2
+
+## Respostas
+
+**@GO1, @GO2, @N1:** "Comando exato, MB, dependências, RAM medida."
+Medi agora com Bun 1.4.2 (`scratchpad/ts2-medida/server.ts`, WebSocket + JSON, porta livre):
+- `bun build --compile --target=bun-windows-x64 server.ts --outfile eras-server.exe` → **86 MB** (40 MB em gzip -9). Compilado de Linux para Windows em 0,4 s.
+- **Zero `node_modules`**, porque o WebSocket já vem no `Bun.serve`.
+- RAM ociosa no Linux: **18 MB** RSS.
+- Um passo de build. O Unity sobe o processo com `Process.Start`, igual ao Go.
+
+Node SEA eu descarto: está em 1.1 e precisa de bundler e do pacote `ws`. O número perde para os ~8 MB do Go, e não vou fingir que não.
+
+**@GO4:** "Semente em 64 bits sem `BigInt`? `Readonly` é raso."
+Um d20 não precisa de 64 bits. O sfc32 guarda 4 × uint32 = 128 bits de estado, todo em `number`, com `Math.imul`/`>>> 0`, e serializa em JSON sem `BigInt`. `Readonly` é raso mesmo, por isso uso um `DeepReadonly<T>` de 6 linhas. Na execução, o laço de teste faz `deepFreeze(entrada)` antes de chamar `aplicar`. Como ESM roda em modo estrito, qualquer mutação **lança erro** no teste.
+
+**@N4:** "Que razão a favor do TS sobrevive com Unity? O que impede outro `position.ts`?"
+Sobrevivem a modelagem de eventos com exaustividade nativa (o GO1 e o GO2 concederam) e o fato de ele pensar tipos em TS. O `position.ts` nenhuma linguagem impede. O que reduz o convite: um pacote só, sem monorepo, sem React, sem Electron.
+
+**@N4:** "Gatilho do acervo e fato que faria aceitar a rival."
+O gatilho é a inflação de stack (Electron em 10/10), e a resposta é Bun puro. Aceito Go se, numa noite de teste, ele escrever em Go o `aplicar` de um ataque com uma tabela de 5 casos sem perguntar sintaxe à IA.
+
+**@N2:** "Travou na noite 12, o que ele faz?"
+Escreve a linha no registro, corta escopo (tira a reação, por exemplo) e segue. O 1,5× vale para a linguagem também. Ela só se rediscute com a fase 2 jogável.
+
+**@N3:** "Playground como cliente WebSocket?"
+Aceito. Ele passa a testar o contrato real, a vantagem "TS roda no navegador" deixa de pesar e ainda some um app que a IA adoraria montar.
+
+## Réplicas
+
+**GO2:** "Se nem o time do TypeScript quer o ferramental em Node, por que o servidor do Sidinei deveria?"
+O TS 7 foi para Go pela velocidade do *compilador*, e escolheram Go porque a estrutura do código JS portava quase linha a linha. É argumento de compilador com milhões de linhas, não de servidor por turno. Ataque de efeito, não técnico.
+
+**N1:** "Iterar `map` tem ordem aleatória."
+Bom ponto, e aqui o TS ganha de leve: a ordem de chaves de objeto e de `Map` é definida pela especificação (inserção). Num `for...of` sobre `Map` o replay não quebra. Em Go, `range` sobre map é aleatório **de propósito**.
+
+## Concessão
+
+O GO2 provou que o core TS do acervo não tinha `tsconfig` e só rodava pelo Vitest, que remove tipos sem checar. Então a "exaustividade de graça" que eu vendi depende de `tsc --noEmit` no script de teste. Sem isso, o TS dá o mesmo zero de garantia que o Go sem linter. Os dois precisam de um passo extra.
+
+## Nova pergunta
+
+**GO2:** em Go, qual é o equivalente do `deepFreeze` no teste? Como o laço prova que `Aplicar` não mexeu nos slices da entrada sem você escrever um `Clonar()` profundo à mão só para comparar?
+
+---
+
+### GO2 (rodada 2)
+
+# GO2, rodada 2
+
+## Respostas
+
+**@N4, @TS4 e @MK3** (as três pediram código Go que seja dele e perguntaram se mostra fluência).
+O código dele está no MUD depois do reset de 03/04: `acervo/Artefatos/03-mud-moderno-pre-fusao/eras-do-brasil-game-arquivado/server/`. São ~3.000 linhas em 7 semanas, com commits em 26 dias diferentes. Só 6 commits têm o Copilot como coautor (`git log` do bundle). Isso desmente o "parou logo, por fadiga". Um trecho de `server/world/game_time.go` (commit `8dd1d55`, 06/04):
+```go
+func (gt *GameTime) AdvanceTime(duration time.Duration) {
+    gt.Time = gt.Time.Add(duration)
+    gt.PeriodOfDay = CalculatePeriodOfDay(gt.Time)
+}
+```
+É Go legível e idiomático, sem luta com a sintaxe. Mas `server/npc/score.go` (linhas 26–37) escolhe o vencedor com `range` sobre um `map[string]float64`. A ordem de iteração de map em Go é aleatória ([spec](https://go.dev/ref/spec#For_range)), então um empate sai diferente a cada execução. Ou seja: ele é fluente em Go, mas cru em determinismo.
+
+Número de noites até o marco da noite 5 (opinião, não medi): TS em 5 noites, Go em 6 a 7. O custo extra do Go são as tags JSON, o `Clonar` e o primeiro `_test.go`.
+
+**@TS1:** "você aceita depender do linter `exhaustive`?"
+Aceito, e admito que é ferramenta compensando a linguagem. O custo é uma linha: `go get -tool github.com/nishanths/exhaustive/cmd/exhaustive` (diretiva `tool`, [Go 1.24](https://go.dev/doc/go1.24#tools)). Depois ele roda `go tool exhaustive ./...` no mesmo script do `go test`. Ele não mantém nada nisso.
+
+**@TS2:** "Como o Go impede `e.Mobs[0].PV -= 5` sem clonar à mão?"
+Com slice, não impede. Mas array em Go é valor ([Effective Go](https://go.dev/doc/effective_go#arrays)): com `Mobs [MaxMobs]Mob` e `NMobs int`, passar `Estado` por valor copia tudo, e a linha acima só altera a cópia. Uma luta tem tamanho máximo, então o array cabe. Para o resto, uso um teste genérico que roda em todo caso da tabela: guarda uma cópia da entrada e compara com `reflect.DeepEqual` depois de `Aplicar`. O `readonly` do TS também não salvou o único commit à mão dele em TS: o `initializeCombat` muta `combatant.position` (achado do N2).
+
+**@MK3:** "eventos sem `interface` + `type switch`?"
+Uso uma struct achatada: `Tipo TipoEvento` (constante) mais campos com `omitempty`. O JSON é trivial e o C# lê a mesma forma, sem `UnmarshalJSON`. Um `switch ev.Tipo` sobre a constante é exatamente o que o `exhaustive` checa.
+
+**@N2:** "trava na noite 12: o que impede a 8ª reabertura?"
+O "1,5× corta escopo" vale para a linguagem também. Naquela noite ele escreve uma linha no registro ("travei em X"), pede à IA só o conceito, e se não destravar corta a feature. Abrir a dúvida de linguagem só é permitido depois da fase jogável, pela regra do N4.
+
+**@N3:** "aceita o playground como cliente WebSocket?"
+Aceito. Ele testa o contrato real. Perde-se rodar o núcleo offline no navegador e mandar um link. Nada disso importa antes de um amigo jogar.
+
+## Réplicas
+
+**TS4:** "pedir que o projeto seja também a escola de Go põe duas metas numa noite de 2h."
+Argumento justo. Só que o próprio dono escreveu em 03/04: *"o problema não é Go, é a construção da lógica [...] isso afeta até JS/TS"* (`historico/sessions/2026-04-03-reset-reimplementacao-do-zero.md`). A fluência em TS não impediu a IA de tomar o núcleo em 2 noites.
+
+**N2:** "ele nunca escreveu um teste por tabela nem uma função pura."
+Concordo. Isso pesa mais que a linguagem.
+
+## Concessão
+
+Eu disse que Go "garante" o determinismo. Errei: o `score.go` dele mostra a armadilha própria do Go, que é a ordem aleatória do `map`, além do `float64`. O tipo `int` não basta. A regra precisa ser "sem map nem float em `regras/`", e isso é disciplina, igual ao `Math.trunc` do TS.
+
+## Nova pergunta
+
+**TS4:** você propôs o teste de uma noite com `aplicar(ataque)` nas duas linguagens. Aceita este critério fechado: tabela de 5 casos passando, sem código de IA, e ganha quem terminar primeiro? E, se empatar, Go leva por inteiros e binário?
+
+---
+
+### TS3 (rodada 2)
+
+# TS3 – Rodada 2
+
+## 1. Respostas
+Ninguém me fez pergunta pelo nome. Respondo as duas que foram para "quem defender TS".
+
+**@GO4:** *"64 bits sem `BigInt` e sem limitar a 32? E quanto o `Readonly<>` protege, sendo raso?"*
+Para um d20, 64 bits não fazem falta. O que conta é o período do gerador, e `xoshiro128**`/`sfc32` usam 4 × 32 bits só com `Math.imul` e `>>> 0`, com período de 2^128. O estado vira `rng: [a, b, c, d]`, que vai para o JSON sem `BigInt`. Quanto ao `Readonly<>`, ele protege só na compilação e só no primeiro nível. Por isso é preciso marcar `readonly` em cada campo e em cada array dos tipos do estado, e em todo caso da tabela rodar o `aplicar` sobre um estado congelado em profundidade. É a mesma muleta do `slices.Clone` de vocês, só que do outro lado.
+
+**@N1:** *"Tamanho real do servidor TS empacotado, e a RAM ociosa. Número medido."*
+Medi hoje, com Bun 1.4.2 e um servidor WebSocket + JSON sem dependências (o `Bun.serve` já traz WebSocket):
+- `bun build --compile --target=bun-windows-x64` → **86 MB**;
+- versão Linux → **81 MB**, com **~18 MB de RSS** parado.
+
+O build cruzado para Windows funcionou a partir do Linux. Não consegui medir o Go aqui, porque a rede bloqueou o `go get`, mas é bem menor. Ponto do Go.
+
+## 2. Réplicas
+**@N4:** *"O motivo que levou ao TS em 10/10 foi 'o cliente vira web'. Esse motivo sumiu. O TS precisa de outro."*
+Concordo que sumiu. Sobram três motivos, em ordem de peso:
+1. **Fluência até a noite 5.** É o primeiro prazo medido, e cumprir prazo é o que segura uma troca de stack.
+2. **Eventos como união.** Os eventos são o contrato inteiro com o Unity, não um detalhe.
+3. **Playground.** O navegador importa o `aplicar` direto, sem WASM. É o mais fraco dos três, já que o playground é "só teste".
+
+Se só restasse o terceiro, eu mudaria de lado.
+
+**@GO3:** *"Em TS ele precisa escolher runtime, tsconfig, test runner, bundler. Com 2h por noite, cada decisão é uma noite."*
+É verdade para o TS de outubro: monorepo, Vite, Vitest e mise. Proponho cortar isso a zero. Testei agora: o Node 22 roda `node --test regras.test.ts` com tipos, sem flag e sem nenhuma dependência. Fica um `package.json` só com o `typescript`, o comando `tsc --noEmit && node --test` e nada mais. O bundler só entra na fase 5. São uma noite e uma linha de decisão, não quatro noites.
+
+## 3. Concessão
+O N3 mostrou que, no único commit de TS feito à mão (`da17716`), `initializeCombat` muta a entrada e o core nunca passou por `tsc`. Cedo nisso: **o argumento "o tipo protege" não está provado para este dono**. Ele só vale se `tsc --noEmit` com `strict` estiver no comando de teste desde a noite 1, junto do teste de entrada congelada. Sem isso, TS e Go empatam em imutabilidade: os dois dependem de disciplina.
+
+## 4. Nova pergunta
+**@GO2:** com o `aplicar` em Go, como fica o playground que o briefing pede? Se a resposta for "cliente WebSocket do servidor local" (proposta do N3), quanto HTML/JS o Sidinei escreve à mão para desenhar a luta, e em que linguagem? Se for JS, o projeto não acaba com duas linguagens de qualquer jeito?
+
+---
+
+### GO3 (rodada 2)
+
+# GO3 — rodada 2
+
+## Respostas
+
+**@TS3:** "`GOOS=js GOARCH=wasm` ou TinyGo? Qual o tamanho do `.wasm` e quantas noites até a primeira luta na tela?"
+Nenhum dos dois. Fico com a saída do N3: o playground vira **cliente WebSocket do servidor local**. É uma página HTML com `new WebSocket(...)` e um `<pre>` que mostra os eventos. Custo: zero noites de WASM, e o playground passa a testar o contrato real, que é o que o Unity vai usar. Se ele insistir em rodar o núcleo dentro do navegador, o N3 já mediu: `syscall/js` trivial dá 1,7 MB (0,5 MB gzip) (`scratchpad/n3-medidas/`). Eu estimo uma noite de cola (opinião, não medi). Nisso o TS é melhor, e digo isso sem ressalva. Só que o playground é ferramenta de teste e entra depois da noite 5, então não decide o marco.
+
+## Réplicas
+
+**TS4:** "Um teste de uma noite: ele escreve à mão o mesmo `aplicar(ataque)` de ~30 linhas em cada linguagem, sem pedir código à IA."
+Concordo e assino embaixo. É o único argumento da mesa que mede o dono, e não a linguagem. Proponho duas regras para o teste: o mesmo caso de tabela nas duas versões e um cronômetro. E o resultado vale para sempre, segundo a regra anti-troca do N4. Se ele terminar o Go travado e o TS fluindo, eu voto TS.
+
+**TS1:** "`Readonly` faz o compilador recusar a mutação da entrada."
+Isso vale em parte. O `DeepReadonly` não vem com o TypeScript: ou ele escreve o tipo recursivo à mão, ou instala `type-fest`. Isso é mais uma decisão de ferramenta, que é justamente meu ponto. E o N2 mostrou que, no único commit à mão em TS (`da17716`), `initializeCombat` muta a entrada. Ou seja, o tipo não estava ligado (TS4 confirmou: `packages/core` não tinha `tsconfig`). Nos dois lados, quem pega a mutação é um **teste** que compara o estado antes e depois. Proponho que isso seja a regra comum, seja qual for a linguagem.
+
+## Concessão
+
+Abandono o argumento "simplicidade de Go como freio contra a troca". O N2 mostrou que as 7 semanas de Go à mão saíram com **zero testes** e com managers donos do próprio estado, o oposto de `aplicar` puro. Go não impediu a fadiga nem empurrou ele para função pura. Então Go não protege do padrão do acervo; quem protege são a regra 1,5× e o teste de uma noite. O que mantenho é menor e verificável: um toolchain só e o binário de 5,8 MB (medida do N3).
+
+## Nova pergunta
+
+**N2:** você pesou "carga cognitiva em sessão de 30 min interrompida" em 20%. Retomar depois de ninar o bebê fica mais fácil numa linguagem com um jeito só de escrever (Go, `gofmt`) ou na linguagem que ele lê sem esforço (TS)? Que fato do acervo sustenta a sua resposta?
+
+---
+
+### TS4 (rodada 2)
+
+# TS4, rodada 2
+
+## Respostas
+
+Ninguém me fez pergunta pelo nome. Respondo as que foram feitas ao "lado TS" ou a "quem defender TS".
+
+**@N4:** "Citem um gatilho de troca do acervo, como a sua linguagem o evita, e que fato faria aceitar a rival."
+- **Gatilho:** "IA no código → recomeço" (LINHA-DO-TEMPO, linha 81).
+- **TS não evita isso.** O `position.ts` foi escrito por IA justamente em TS. O que TS faz é diminuir a *necessidade* de pedir ajuda, porque ali ele não é iniciante. Isso reduz o risco, mas não impede.
+- **Fato que me faz aceitar Go:** o teste de uma noite que propus na rodada 1. Ele escreve à mão o mesmo `aplicar(ataque)` nas duas linguagens, contra casos de teste dele, sem pedir código à IA. Se terminar em Go no mesmo tempo, eu passo para o lado Go.
+
+**@GO4:** "Como garantir semente de 64 bits sem `BigInt`? E quanto o `Readonly<>` protege, sendo raso?"
+- **64 bits:** o jogo não precisa. O mulberry32 tem período de 2^32, cerca de 4 bilhões de rolagens. 1.000 lutas × ~100 rolagens dão 10^5. Se quiser mais folga, o sfc32 usa 4 inteiros de 32 bits, que cabem no JSON sem truque.
+- **`Readonly<>`:** é raso, sim. O `DeepReadonly` é um tipo de 5 linhas, mas só vale na compilação. A proteção real é um `deepFreeze` da entrada no teste: em ESM, mutar objeto congelado lança `TypeError`. Isso pega o erro na execução, e não só no editor.
+
+**@N1:** "Tamanho real do servidor TS empacotado e RAM ociosa. Número medido."
+Medi agora um servidor WebSocket + JSON mínimo (scratchpad `r2tmp/m-ts` e `r2tmp/m-go`):
+
+| | `bun build --compile` 1.4.2 | Go 1.24 (`net/http`, sem lib de WebSocket) |
+|---|---|---|
+| `.exe` Windows | **86 MB** | **8,5 MB** |
+| RSS ocioso (Linux) | **18 MB** | **7,6 MB** |
+
+Go ganha. Os 86 MB pesam pouco ao lado de um build Unity, mas são 10× mais.
+
+## Réplicas
+
+**GO4:** "Para ele, carreira e projeto apontam para o mesmo lado."
+- Concordo em parte. O retorno duplo existe, mas só se a noite em Go for escrita *por ele*.
+- O critério de maior peso do N4 é autoria. Se ser iniciante empurrar para "IA, monta aí", o retorno duplo vira perda dupla: nem treina Go, nem o jogo é dele.
+- Isso é opinião. Por isso proponho um teste em vez de um adjetivo.
+
+**N2:** "Nos dois casos, ele nunca escreveu um teste por tabela nem uma função pura."
+- Concordo, e isso corta o meu argumento pela metade. Fluência em TS prova que ele escreve *tipos* bem. Não prova que escreve funções puras.
+- O músculo que falta independe da linguagem. A vantagem de TS fica reduzida a sintaxe e eventos, e não a disciplina.
+
+## Concessão
+
+Conferi o commit à mão `da17716` (11/10), no bundle do semi-idle. A `initializeCombat` faz `combatant.position = { lane: 0, step: 2 }` no objeto que recebeu.
+
+Ou seja, na língua foco dele, sem IA, a primeira regra do núcleo ("não mexer na entrada") quebrou. O `readonly` não estava lá, e o `tsc` nunca rodou no core. Retiro a ideia de que "conforto em TS" protege o `aplicar`. O que protege é o teste de mutação, e ele custa o mesmo nas duas linguagens.
+
+Continuo em TS por dois motivos: o tempo até a noite 5 e a união discriminada nos eventos. A minha margem caiu.
+
+## Nova pergunta
+
+**GO4:** você aceita o teste de uma noite (o mesmo `aplicar(ataque)` à mão nas duas linguagens, sem código da IA) como desempate do critério de autoria? Se aceita, qual medida conta: tempo, testes passando ou número de perguntas à IA?
+
+---
+
+### GO4 (rodada 2)
+
+# GO4: rodada 2
+
+## Respostas
+
+Ninguém me fez pergunta pelo nome. Respondo a única pergunta que foi para "os dois lados".
+
+**@N4:** "citem um gatilho de troca do acervo e mostrem como a sua linguagem o evita; e qual fato faria vocês aceitarem a rival."
+
+- **Gatilho:** inflar a stack antes de ter luta. A fase TS de outubro tinha monorepo, Vite/React, três tsconfig, mise e Electron antes de existir uma regra testada (`acervo/LINHA-DO-TEMPO.md`, marco 11; N3 e MK3 mostraram isso). O Go não evita essa vontade, mas oferece menos coisa para inflar: `go mod init`, `go test`, `go build`. O MUD tinha uma única dependência, `coder/websocket` (MK3).
+- **Ressalva honesta:** os três fracassos em Go não foram por ferramental. Foram por troca de gênero e por IA no núcleo. Nesse gatilho a minha linguagem não ajuda em nada.
+- **Fato que me faz aceitar TS:** o teste de uma noite que o TS4 propôs. Ele escreve à mão o mesmo `aplicar(ataque)`, com a tabela de testes, nas duas linguagens. Se a versão Go não ficar verde numa noite de 2h e a TS ficar, eu passo para o TS. Isso é observável antes da fase jogável.
+
+## Réplicas
+
+**TS4:** "pedir que o projeto seja também a escola de Go põe duas metas numa noite de 2h."
+Concordo em parte. Na rodada 1 eu vendi o "bônus duplo" como vantagem do projeto. Era vantagem minha de persona, não do projeto. Mantenho o resto: inteiros nativos, binário de 5,8 MB contra 86 MB (medição do N3) e um ferramental sem escolhas. Esses pontos não dependem de ele querer aprender Go.
+
+**N1:** "iterar `map` tem ordem aleatória. Um `for range` dentro do núcleo quebra o replay sem nenhum erro."
+Esse é um ponto que eu não tinha levantado, e ele pesa contra o Go justamente no determinismo, onde eu dizia que o Go ganhava. A conta honesta fica assim:
+
+- Go ganha no inteiro: divisão inteira e overflow definido.
+- Go perde no aliasing de slice e no `map`.
+- TS perde no float e no `Math.random` (que já aparece em `teste-utils.ts`).
+
+Remédio igual nos dois lados: só listas ordenadas no estado e um teste de replay com 1.000 sementes no simulador. Rebaixo determinismo de "vitória Go" para "vantagem leve Go".
+
+## Concessão
+
+**Cedo o argumento de carreira.** O MK1 tem razão: "a hora que mais rende em Go é a do expediente", e o currículo dele já diz "Go em produção". Na rodada 1 a minha tese principal era que "carreira e projeto apontam para o mesmo lado". Ela cai para peso baixo. O que sobra para o Go é técnico e de atrito, não de carreira.
+
+Com isso, a fluência de TS (a língua foco dele desde 2018) passa a pesar mais na minha conta do que pesava. Continuo no Go, mas por margem menor. Volto a dizer: quem decide é o teste de uma noite, não este debate.
+
+## Nova pergunta
+
+**TS4:** no seu teste de uma noite, qual é a régua do "mesmo conforto"? Proponho três medidas:
+
+1. tempo até a tabela ficar verde;
+2. quantas perguntas ele fez à IA;
+3. se ele precisou pedir à IA o setup (tsconfig, runner) ou o `Clonar()`.
+
+Você aceita que pedir à IA o setup do TS conte contra o TS, do mesmo jeito que pedir o `Clonar()` conta contra o Go?
+
+---
+
+### N1 (rodada 2)
+
+# N1 — Rodada 2 (performance)
+
+## 1. Respostas
+
+Ninguém me fez pergunta na rodada 1. Lembro as 3 que fiz e que ainda esperam resposta, porque viram dados na próxima rodada:
+- **GO1:** como impedir `range` sobre `map` dentro do núcleo (lint, convenção ou replay com 1.000 sementes)?
+- **TS1:** `bigint` ou `number` com `>>> 0` no sorteio, e como ele percebe que esqueceu um?
+- **TS2:** tamanho e RAM **medidos** do servidor TS empacotado. O N3 já mediu: Bun `--compile` 86 MB, Bun 16 MB em repouso. TS2, você confirma ou contesta?
+
+## 2. Réplicas
+
+**@GO2:** *"Até a Microsoft desistiu de rodar o compilador do TypeScript em Node e o reescreveu em Go [...] por que o servidor do Sidinei deveria?"*
+É argumento de fachada. Um compilador percorre milhões de nós de AST por segundo, enquanto este servidor recebe ~15 comandos/s por zona. Na minha medição (`scratchpad/n1bench/`), 1.000 lutas levam 29 ms em Node e 2 ms em Go. Em 100 mil lutas, a diferença cai para 1,35×. Para o caso do TS 7 valer aqui, mostre **um** número deste jogo em que o Node vire gargalo. Sem esse número, peço que o argumento saia da mesa. O N4 já pôs performance em peso 0, e eu assino embaixo.
+
+**@GO4:** *"como vocês garantem o sorteio com semente em inteiros de 64 bits sem `BigInt` e sem limitar o gerador a 32 bits?"*
+A pergunta parte de uma exigência que o jogo não tem. O mulberry32 tem período de 2^32, cerca de 4,3 bilhões de sorteios. Uma luta do meu teste gasta uns 50, e o simulador inteiro gasta uns 50 mil. Um d20 não precisa de 64 bits. GO1, GO3 e GO4 citaram o splitmix64 como vantagem, mas o que o projeto precisa é ter **o mesmo resultado em toda máquina**. Isso o TS faz em 32 bits, como o meu teste mostrou: totais idênticos nas duas linguagens. A vantagem real de Go aqui é menor e diferente: `uint32` dá a volta por especificação, sem depender de lembrar o `>>> 0`. Ela fica no critério de **disciplina**, não no de capacidade.
+
+## 3. Concessão
+
+Na rodada 1, eu dei 35% do meu recorte à distribuição e chamei de "vantagem Go clara". Depois do N3, eu cedo em parte. Um build Unity já tem centenas de MB, então 86 MB do Bun (40 MB comprimido) não muda a experiência de quem baixa. O que continua pesando é outra coisa: o Node SEA está em "Stability 1.1", e um runtime nesse estado vai dentro de um produto pago. A vantagem de Go passa de "clara" a "moderada", e o motivo deixa de ser o tamanho e passa a ser a maturidade do caminho. Também corrijo um dado meu: os 29 ms do Node incluem o aquecimento do JIT. Isso reforça o empate, não o contradiz.
+
+## 4. Nova pergunta
+
+**TS3:** você propôs *"uma regra de lint que proíbe `Math.random`, `Date` e `/` dentro de `regras/`"*. Qual regra exata? Existe pronta (`no-restricted-syntax` com seletor de `BinaryExpression[operator='/']`?) ou precisa ser escrita? E ela pega `x / 2` dentro de um helper importado de fora de `regras/`? Quero o trecho de config, porque essa regra é a única coisa que fecha a lacuna de determinismo do TS.
+
+---
+
+### N2 (rodada 2)
+
+# N2 — Rodada 2
+
+## Respostas
+
+**@GO3:** *"Você pesa mais a linguagem que ele já domina (TS) ou a que ele pratica todo dia no trabalho (Go)?"*
+
+Não peso nenhuma das duas por si. Peso **em qual ele escreve a regra sem pedir código à IA**. O acervo divide as duas coisas:
+- **Domínio (TS):** os tipos saíram fluentes no commit `da17716`. Mesmo assim, ele cedeu o núcleo em 2 noites.
+- **Prática (Go):** foram 7 semanas à mão depois do reset de 03/04, mas sem teste nenhum e com estado mutável.
+
+Dito isso, para um horizonte de 20 noites, dou um pouco mais de peso à prática diária. A distância de fluência em Go diminui toda semana, paga pela Gamersclub. A vantagem de fluência do TS não cresce.
+
+O contraponto do TS4 é justo: "duas metas numa noite de 2h". Por isso não resolvo isso no papel. Fico com o teste de uma noite que o TS4 propôs: o mesmo `aplicar(ataque)` à mão nas duas linguagens. O critério é fechado antes:
+- nenhum código pedido à IA;
+- a entrada sai intacta;
+- uma tabela com 3 casos passa.
+
+## Réplicas
+
+**TS4:** *"No repo de outubro, `packages/core` não tem `tsconfig` nem `typescript` como dependência."*
+
+Confirmo: `packages/core/package.json` tem `devDependencies: {}`. Isso reforça o que eu disse na R1. O conforto do TS que ele sentiu era só sintaxe, porque nada checava os tipos. A sua condição (`tsc --noEmit` com `strict` no `npm test` desde a noite 1) deveria valer como regra, não como sugestão. Sem ela, o TS perde o seu único ganho técnico claro, que são as uniões exaustivas.
+
+**GO4:** *"O MUD usa `rand.Intn` global, nada determinístico (`npc.go:188`)."*
+
+Confirmo também, e com o autor: a linha veio do commit `b64d12d` (13/05), sem coautor de IA, ou seja, é dele. Junto com o `initializeCombat` do TS que muta a entrada, o padrão fica claro. **Nas duas linguagens, à mão, ele escreveu código com estado e sorteio fora do estado.** As armadilhas são diferentes:
+- `>>> 0` esquecido em TS;
+- `range` sobre `map` ou slice compartilhado em Go.
+
+Mas a defesa é a mesma: um teste de replay com N sementes e a comparação da entrada antes e depois. Deve ser o primeiro teste da noite 1, em qualquer das duas.
+
+## Concessão
+
+Na R1 dei 10% ao técnico, porque "os dois resolvem". As medições do N1 e do N3 me fizeram subir para ~20%, tirando de carreira. São dois motivos:
+- **Distribuição:** 5,8 MB em Go contra 86 MB no Bun ou um Node SEA ainda "1.1, Active development". Isso não é empate, é atrito real no build da Steam.
+- **Determinismo:** em TS o erro de inteiro aparece calado só na luta 700. Isso é risco de **autoria**: um bug que ele não entende é exatamente o que o leva a pedir à IA "conserta aí".
+
+Isso puxa um pouco para o Go, mas não fecha. A autoria continua em aberto, e é ela que decide.
+
+## Nova pergunta
+
+**GO1:** você aceita como desempate o teste de uma noite do TS4, com o critério acima, decidido antes? Se ele fechar a versão TS e não fechar a Go na mesma noite, você cede, ou vai atribuir isso a "curva de iniciante que passa"?
+
+---
+
+### N3 (rodada 2)
+
+# N3 (neutro, integração): rodada 2
+
+## Respostas
+
+Ninguém me fez pergunta na rodada 1 (`conversa.md`, linhas 1–873). Registro que as minhas 3 perguntas a TS1, GO1, GO2 e TS2 seguem em aberto, porque as aberturas vieram antes delas. Peço resposta na próxima rodada, sobretudo esta: **playground como cliente WebSocket do servidor local, sim ou não?**
+
+## Réplicas
+
+**@GO1:** "Node tem SEA, mas [...] a compilação cruzada não é documentada como suportada."
+- Não é bem assim. A doc atual trata disso: para gerar para outra plataforma, desligue `useCodeCache` e `useSnapshot`, que podem criar executáveis que quebram em outra máquina. O binário do Node usado no build precisa ser da mesma versão do binário de destino ([doc SEA](https://nodejs.org/dist/latest/docs/api/single-executable-applications.html)).
+- Então a compilação cruzada existe, mas tem regra. O argumento honesto contra o SEA é outro: a estabilidade ainda é 1.1, e o projeto precisa baixar um `node.exe` de Windows para cada build.
+- Isso não muda o placar. O Go continua com um único `GOOS=windows go build`. Só não vale exagerar.
+
+**@N4:** "Contrato com C# | 5 | Os dois saem de JSON Schema ou de tipos gerados. A diferença é pequena."
+- Concordo que a **diferença** entre TS e Go é pequena. Discordo se isso for lido como "o custo é pequeno".
+- O teste que fiz com o quicktype achata o `oneOf` numa classe só, em C# e em Go.
+- O TS, gerando schema a partir do tipo, emite `"type": "number"` em vez de `integer` (`scratchpad/n3-medidas/qt/`).
+- O custo real fica no C#, que o dono não sabe. Peso baixo **para desempatar**, mas um item obrigatório do roteiro: o conversor de `tipo` no Newtonsoft, escrito uma vez, precisa ter dono e noite marcada antes da fase 2 (Luta na tela).
+
+Nota para **N1** e **TS2**: os números de distribuição já estão medidos.
+- Bun `--compile` para Windows: 86 MB (40 MB com gzip).
+- Go com `-s -w`: 5,8 MB.
+- Os "~120 MB" e os "50–100 MB" da rodada 1 podem ser trocados por esses valores.
+
+## Concessão
+
+Na abertura, dei peso **alto** ao contrato com C#. Depois de ler N4 e N2 ("nenhum dos dois compartilha código com o C# do Unity"), separo duas coisas:
+- **custo:** continua alto;
+- **peso para escolher a linguagem:** é baixo, porque o custo é o mesmo nos dois lados.
+
+Também recuo em "sem framework é meia verdade". O GO4 tem razão: `coder/websocket` é uma biblioteca, não um framework. O mesmo vale para `ws` no Node. Os dois lados ficam com 1 dependência direta, e isso empata.
+
+## Nova pergunta
+
+**TS3:** você propôs bundle com esbuild e `node.exe` em `StreamingAssets`. É o caminho TS mais estável, sem SEA. Responda em números:
+- qual versão do Node vai junto e quantos MB tem o `node.exe` de Windows dela;
+- como o processo se encerra quando o Unity fecha ou trava (stdin fechado, PID do pai?), para não deixar servidor órfão segurando a porta.
+
+---
+
+### MK1 (rodada 2)
+
+# MK1, rodada 2
+
+## Respostas
+
+**@GO4:** *"Existe dado de vaga, no Brasil, que mostre um dev fullstack TS ganhando mais do que um dev pleno Go que já está empregado em Go?"*
+
+Não existe. Procurei de novo e não há base pública confiável de salário **por linguagem** no Brasil:
+- O Stack Overflow 2025 tirou o recorte "top paying technologies" ([survey.stackoverflow.co/2025/work](https://survey.stackoverflow.co/2025/work)).
+- Os blogs dão faixas sem metodologia: Go pleno R$ 8–14k ([jobrise](https://jobrise.io/pt/blog/golang-vagas-brasil-2026-quanto-paga/)), pleno genérico R$ 6–12k ([numerando](https://www.numerando.com.br/blog/salario-desenvolvedor-software-brasil-2026)).
+- Um agregador grande dá R$ 1.461 de média para "desenvolvedor Node.js" no Brasil, mas R$ 3,7 mil para home office na mesma página ([jooble](https://br.jooble.org/salary/desenvolvedor-node.js/Brasil)). É lixo estatístico, e mostra por que ninguém aqui deveria citar salário como prova.
+
+Mas a pergunta parte de uma premissa que não está na mesa. Ninguém propôs que ele **troque de emprego** ou de linguagem no trabalho. O debate escolhe a linguagem de um projeto noturno. O emprego Go dele continua igual nos dois cenários. Então concordo com a conclusão que você quer tirar ("não há ganho salarial em largar Go"), só que ela não decide nada aqui.
+
+## Réplicas
+
+**MK2:** *"Go tem retorno duplo… Opinião: para quem é a única renda da casa, o retorno duplo pesa."*
+Concordo em parte. O retorno é real em **habilidade**, não em **currículo**. Um recrutador não vê diferença entre "Go na Gamersclub" e "Go na Gamersclub + jogo pessoal em Go". Já o Sidinei sente a diferença na segunda de manhã, se de noite praticou `go test` por tabela e cópia de slice. O argumento de "única renda" vale para a segurança do emprego atual, não para salário futuro.
+
+**N2:** *"Nos dois casos, ele nunca escreveu um teste por tabela nem uma função pura. Esse é o músculo que falta."*
+Esse é o dado de portfólio mais útil do debate. Para o mercado, "existe, roda e tem teste" vale mais que a linguagem. O acervo inteiro tem **zero** testes em Go e poucos em TS. Um repo público com `aplicar` puro e cem casos de tabela é portfólio nas duas linguagens. Um repo trocado pela 6ª vez não é portfólio em nenhuma.
+
+## Concessão
+
+Na rodada 1 eu disse que um projeto pessoal em Go "soma pouco" à carreira. Mudo em parte depois de ler N2 e GO4. Para o **currículo**, continua somando pouco. Mas a transferência de **prática** é maior do que eu considerei. Ele mesmo se diz iniciante em Go, e o acervo mostra que ele nunca praticou teste por tabela, determinismo nem imutabilidade em Go (`npc.go:188` usa `rand` global). Esses três hábitos são diretamente úteis no código Go da Gamersclub. Em TS, o ganho seria só aprofundar o que ele já domina. Então a carreira pende para Go, mas com peso baixo (~10%, como N4 propôs), e não pode virar desempate se Go custar a noite 5.
+
+## Nova pergunta
+
+**TS4:** você disse que a carreira "já está paga" pelas 40h de Go no trabalho. Concordo para o currículo. Mas se ele escrever o jogo em TS, que habilidade **nova** ele leva para o mercado que ainda não tem depois de 8 anos de Node/TS? Se for nenhuma, você aceita que, só no critério carreira, Go leva vantagem pequena?
+
+---
+
+### MK2 (rodada 2)
+
+# MK2: rodada 2 (Mercado, backend de jogos)
+
+## 1. Respostas
+
+Ninguém me fez pergunta na rodada 1 (`conversa.md`, busca por "MK2"). Mas a minha pergunta ao TS1 sobre RAM foi respondida por neutros, com medição:
+- N3: Go 7,5 MB, Bun 16 MB e Node 22 46 MB em repouso;
+- N1: 45 MB contra 7 MB.
+
+Aceito esses números. Numa VPS de 1 GB não mudam o preço. A outra metade da pergunta, o plano de hospedagem TS sem plataforma gerenciada, continua com o TS1.
+
+## 2. Réplicas
+
+**@MK1:** "Sugiro aos debatedores que parem de usar 'carreira' como argumento forte, para os dois lados."
+Concordo, e isso derruba parte da minha abertura (veja a concessão abaixo). Acrescento um dado de mercado: o que recrutador de backend de jogos pede é sistema que rodou com gente de verdade, não a linguagem. Nakama, Colyseus e SpacetimeDB têm vitrine com jogos lançados, não com protótipos. Então o ativo de carreira é a fase 5 ("um amigo joga"), em qualquer das duas.
+
+**@N4:** "O motivo que levou ao TS em 10/10 foi 'o cliente vira web'. Esse motivo sumiu. O TS precisa de outro."
+Do ponto de vista de mercado, confirmo e acrescento um caso concreto. O argumento "ecossistema de jogo em TS" também perde força com cliente Unity:
+- O Colyseus é bom, mas o briefing proíbe framework até a fase 6.
+- O Hathora, que era hospedagem para o mundo TS, saiu do mercado de jogos (https://gamesbeat.com/?p=318174).
+- Se um dia ele quiser o Nakama, o runtime TS de lá **não é Node**. É uma VM embutida (goja) que só aceita ES5, sem módulos que dependam do Node: https://heroiclabs.com/docs/nakama/server-framework/typescript-runtime/
+
+Opinião: o que sobra de real para o TS é fluência (N4, TS4) e o playground nativo no navegador (N1, item 7). São motivos do dono e do teste, não do mercado. Ainda assim podem bastar, porque o mercado empata.
+
+## 3. Concessão
+
+Na rodada 1 eu disse que "Go tem retorno duplo" e que "para quem é a única renda da casa, o retorno duplo pesa". Cedo parte disso:
+- **MK1:** a hora de Go que rende para a carreira é a do expediente, com review sênior e produção. Um projeto noturno soma pouco a um currículo que já diz "Go em produção".
+- **TS4:** quem paga esse aprendizado é a empresa, 40h por semana.
+
+O que mantenho, rebaixado para peso pequeno: praticar Go à noite pode acelerar o dia (MK3 diz o mesmo). Mas isso é benefício colateral, não critério de escolha. Assino o peso 10 do N4 e não peço mais que isso.
+
+## 4. Nova pergunta
+
+- **TS2:** você propôs mulberry32 com `Math.imul` e `>>> 0` para o sorteio. Se na fase 6 o servidor for para o Nakama com runtime TS (goja, ES5), o `aplicar` roda lá sem mudança? E vale a mesma pergunta se alguém do seu lado usar `BigInt` para garantir inteiros, já que o `BigInt` não existe em ES5. Ou você descarta o Nakama de vez e assume que o caminho TS da fase 6 é sempre um processo próprio?
+
+---
+
+### MK3 (rodada 2)
+
+# MK3, rodada 2
+
+## 1. Respostas
+
+Ninguém me fez pergunta na rodada 1: procurei "MK3" em `conversa.md`. As minhas perguntas ao TS1 (ferramental congelado) e ao GO2 (autoria e eventos) continuam abertas.
+
+## 2. Réplicas
+
+**@GO2:** você disse: "Até a Microsoft desistiu de rodar o compilador do TypeScript em Node e o reescreveu em Go [...] por que o servidor do Sidinei deveria?"
+
+- Discordo do raciocínio, não do fato. O compilador do TS processa projetos de milhões de linhas, depende de CPU e de memória compartilhada entre threads.
+- A própria equipe explicou que escolheu Go porque a estrutura do código existente se parecia com Go, o que facilitava portar arquivo por arquivo, e não porque Node seja ruim para servidor (https://github.com/microsoft/typescript-go/discussions/411).
+- O servidor do Eras é o caso oposto. O N1 mediu microssegundos por `aplicar` e a CPU parada mais de 99% do tempo.
+- O TS 7 serve a outro argumento, que é o meu: ele mudou os padrões do `tsconfig` e removeu opções em 2026 (https://devblogs.microsoft.com/typescript/announcing-typescript-7-0-beta). Isso mostra que o ferramental do TS se mexe. Não mostra que o Node é inadequado.
+
+**@TS2:** você disse: "O TS facilita colar código de IA, porque é a linguagem em que a IA mais tem exemplo."
+
+- Concordo com a metade sobre volume. TS é a nº 1 em contribuidores no GitHub (https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/).
+- Mais exemplo não virou mais acerto:
+  - No Multi-SWE-bench, "TS e JS consistentemente" tiveram as menores taxas de resolução (https://arxiv.org/abs/2504.02605).
+  - No Multi-LCB, Go e TS empatam (https://arxiv.org/pdf/2606.20517).
+- Para este dono, a IA não escreve o núcleo, então isso pesa pouco. Concordo com a regra do N4: "a IA escreve mais rápido" conta contra.
+- Um dado conta a favor do TS: 94% dos erros de compilação em código gerado por LLM são erros de tipo (Octoverse). Se a IA só revisa, um compilador de tipos mais rico também acusa os erros dele. Isso só vale se o `tsc --noEmit` rodar de fato, coisa que não acontecia no semi-idle (GO2, TS4).
+
+## 3. Concessão
+
+- Na rodada 1, eu disse que, em TS, "cada decisão de ferramental é uma porta para a troca de novo". Depois de ler TS1 e TS4, cedo em parte.
+- Se o ferramental for congelado na noite 1, o risco cai para algo próximo do Go:
+  - Node LTS, que roda TS sem build: a remoção de tipos ficou estável no 24.12 (https://x-cmd.com/blog/251218);
+  - Vitest;
+  - `tsc --noEmit` com `strict` no `npm test`.
+- O que sobra é externo e tem data: a versão grande do TS (7.0 → 7.1) e a troca de LTS do Node. São eventos de calendário, não noites perdidas.
+- Ressalva: o acervo mostra que o congelamento não aconteceu em outubro (monorepo, Vite, mise). O plano funciona, mas o histórico de cumpri-lo é ruim.
+
+## 4. Nova pergunta
+
+**@GO4:** você disse que Go tem "um ferramental que não tem nada para configurar". Só que GO1, GO2 e GO3 admitiram que a exaustividade dos eventos depende de `exhaustive` ou `gochecksumtype`. Isso entra como `golangci-lint` com `.golangci.yml` e versão fixa, como `go vet` com analisador próprio, ou não entra? Se não entrar, quem pega o `case` esquecido de `reacao`: o teste por tabela ou a IA revisora?
