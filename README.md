@@ -21,7 +21,7 @@ Organizado em dois eixos: **conversas** (por fonte) e **artefatos** (por era do 
 | `Conversas/GPT/` | Conversas com o ChatGPT: a origem e a fase de RPG de mesa (2023–2025) e o trilho paralelo ao Claude em ago–set/2026 (servidor da Escória, arte do MVP, a fusão) |
 | `Conversas/Gemini/` | Conversas com o Gemini: fases e ferramentas (nov/2025–fev/2026) e o enredo do mundo (out/2026) |
 | `Conversas/Claude/` | Conversas com o Claude (mar–out/2026); em `memorias/`, a memória da conta sobre o jogo |
-| `Conversas/WhatsApp/` | Prints e transcrição da conversa que deu origem à ideia do jogo (jul/2023) |
+| `Conversas/WhatsApp/` | Prints e transcrição da conversa em que a ideia, nascida no ChatGPT em 01/07/2023, foi apresentada pela primeira vez (02–04/07/2023) |
 | `Conversas/Copilot/` | Logs de sessões com o Copilot (fev–mar/2026): a última fase de documentação e o pivô para MUD Moderno |
 | `Artefatos/01-rpg-de-mesa-e-narrativa/` | GDD inicial (`Livros Antigos/`) e as análises do NotebookLM (2023–jan/2026), quando o jogo ainda era um RPG de mesa/D20 sem código |
 | `Artefatos/02-unity-tatico/` | ADRs e docs técnicos da era em que o jogo era um RPG tático em Unity |

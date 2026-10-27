@@ -5,8 +5,10 @@
 > metadados (foram exportados do WhatsApp em 2026-09-24), mas o conteúdo mostra as datas reais
 > da conversa (2 a 4 de julho de 2023), confirmadas pelo Sidinei.
 >
-> **Este é o ponto de partida mais antigo já localizado do projeto** — um dia depois do
-> primeiro chat de ChatGPT registrado ([2023-07-01_Historia do Brasil](../Conversas%20GPT/2023-07-01_Historia%20do%20Brasil_convertido.md)).
+> **Primeira vez que a ideia é apresentada a outra pessoa** — um dia depois do primeiro
+> chat de ChatGPT registrado ([2023-07-01_Historia do Brasil](../GPT/2023-07-01_Historia%20do%20Brasil_convertido.md)),
+> onde o projeto de fato nasceu: o texto colado às 11:43 é a mensagem *"Até agora temos o
+> seguinte para o jogo:"* que Sidinei escreveu naquele chat.
 > Ver [`LINHA-DO-TEMPO.md`](../LINHA-DO-TEMPO.md) na raiz do repositório.
 
 ---
@@ -158,7 +160,7 @@
 - Contato salvo como "Guilherme Bambam" — pessoa não está mais no WhatsApp no momento do print
   (mensagem "Essa pessoa não está mais no WhatsApp" aparece em todos os prints).
 - O nome original do jogo, confirmado aqui e no documento de backup do canvas
-  (ver [2023-07-01_Historia do Brasil_convertido.md](../Conversas%20GPT/2023-07-01_Historia%20do%20Brasil_convertido.md)),
+  (ver [2023-07-01_Historia do Brasil_convertido.md](../GPT/2023-07-01_Historia%20do%20Brasil_convertido.md)),
   era **"1500 Caminhos do Brasil"**.
 - O link `chat.openai.com/share/...` citado em 2023-07-02 11:44 é uma conversa do ChatGPT
   compartilhada na época — não necessariamente a mesma que está salva em `Conversas GPT/`

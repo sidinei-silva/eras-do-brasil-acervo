@@ -1,7 +1,8 @@
 # Linha do Tempo — Desenvolvimento do Eras do Brasil
 
 > Reconstrução cronológica de como o projeto nasceu e evoluiu, a partir dos chats
-> originais com o ChatGPT e da conversa de WhatsApp que deu o pontapé inicial. Serve
+> originais com o ChatGPT (onde a ideia nasceu) e da conversa de WhatsApp em que ela foi
+> apresentada pela primeira vez a outra pessoa. Serve
 > de mapa para não se perder na história do desenvolvimento e como índice de
 > navegação para os documentos-fonte.
 >
@@ -20,9 +21,12 @@
 
 ## Origem
 
-O projeto não começou como "Eras do Brasil", e nem começou no ChatGPT. Começou como
-uma piada de WhatsApp — **"Bora fazer um game?"** — em julho de 2023, virou
-**"1500 Caminhos do Brasil"**, um RPG de turno digital sobre a história do Brasil,
+O projeto não começou como "Eras do Brasil". Começou num chat com o ChatGPT em
+**01/07/2023** — um pedido de linha do tempo da história do Brasil que virou *"Daria
+para fazer um RPG com a história do Brasil até a proclamação da república?"* — e ali
+mesmo ganhou o nome **"1500 Caminhos do Brasil"**, um RPG de turno digital sobre a
+história do Brasil. No dia seguinte (02/07) Sidinei levou a ideia para o WhatsApp —
+**"Bora fazer um game?"** — colando o resumo que tinha montado no ChatGPT. Depois, o projeto
 passou por uma fase de RPG de mesa de mundo persistente em 2025 (ChatGPT e Gemini),
 foi implementado em Unity com o Copilot no início de 2026, e em 11/03/2026 o Copilot
 pivota o projeto para código de verdade — um MMORPG textual em Go, que o Claude assume
@@ -118,8 +122,8 @@ conversa de WhatsApp de 2023, de que a arma ou o equipamento definam o personage
 
 | # | Data | Fonte | Resumo | Arquivo |
 |---|------|------|--------|---------|
-| 1 | 2023-07-02 | WhatsApp — conversa com Guilherme Bambam | **Origem real do projeto.** Sidinei chama Guilherme para "fazer um game", cola o resultado de uma conversa anterior no ChatGPT já com o conceito **"1500 Caminhos do Brasil"** (RPG de turno inspirado em Pillars of Eternity/Wartales/Baldur's Gate) e conta que a ideia veio de uma reportagem sobre a independência da Bahia. Conversa continua até 2023-07-04 discutindo sistema de companheiros (estilo Solasta/Baldur's Gate) e classes. | [2023-07-02_Conversa WhatsApp Guilherme Bambam_transcrita.md](Conversas/WhatsApp/2023-07-02_Conversa%20WhatsApp%20Guilherme%20Bambam_transcrita.md) |
-| 2 | 2023-07-01 | História do Brasil (ChatGPT) | Primeiro chat registrado no ChatGPT: pedido de uma linha do tempo da história do Brasil. Revisitado em **2025-04-17**, quando Sidinei pediu um "backup nostálgico" — um documento de canvas confirmando que o nome original do jogo era **"1500 Caminhos do Brasil"** e detalhando os atos/classes da ideia original (ver seção [Achado](#achado-o-nome-original-era-1500-caminhos-do-brasil) abaixo). | [2023-07-01_Historia do Brasil_convertido.md](Conversas/GPT/2023-07-01_Historia%20do%20Brasil_convertido.md) |
+| 1 | 2023-07-01 | História do Brasil (ChatGPT) | **Origem real do projeto.** Primeiro chat registrado no ChatGPT: começa com um pedido de linha do tempo da história do Brasil e logo vira *"Daria para fazer um RPG com a história do Brasil até a proclamação da república?"*. O ChatGPT propõe "Caminhos do Brasil" (RPG de ação); o próprio Sidinei, numa mensagem *"Até agora temos o seguinte para o jogo:"*, reescreve o resumo como **"1500 Caminhos do Brasil"**, RPG de turno inspirado em Pillars of Eternity/Wartales/Baldur's Gate — exatamente o texto que ele cola no WhatsApp em 02/07 às 11:43 (ou seja, essa parte do chat é anterior à conversa de WhatsApp). Revisitado em **2025-04-17**, quando Sidinei pediu um "backup nostálgico" — um documento de canvas que dá a data da primeira mensagem (01/07/2023) e detalha os atos/classes da ideia original (ver seção [Achado](#achado-o-nome-original-era-1500-caminhos-do-brasil) abaixo). | [2023-07-01_Historia do Brasil_convertido.md](Conversas/GPT/2023-07-01_Historia%20do%20Brasil_convertido.md) |
+| 2 | 2023-07-02 | WhatsApp — conversa com Guilherme Bambam | Primeira vez que a ideia sai do ChatGPT. Sidinei chama Guilherme para "fazer um game" e cola o resumo **"1500 Caminhos do Brasil"** montado no chat do dia anterior (#1); conta que a ideia veio de uma reportagem sobre a independência da Bahia. Conversa continua até 2023-07-04 discutindo sistema de companheiros (estilo Solasta/Baldur's Gate) e classes. | [2023-07-02_Conversa WhatsApp Guilherme Bambam_transcrita.md](Conversas/WhatsApp/2023-07-02_Conversa%20WhatsApp%20Guilherme%20Bambam_transcrita.md) |
 | 3 | 2023-07-07 | [OFICIAL] RPG História do Brasil (ChatGPT) | Pedido mais estruturado: linha do tempo completa da colonização à proclamação da República, com personagens e eventos. Primeira vez que o chat é marcado como "oficial". | [2023-07-07_OFICIAL RPG Historia do Brasil_convertido.md](Conversas/GPT/2023-07-07_OFICIAL%20RPG%20Historia%20do%20Brasil_convertido.md) |
 | — | *(hiato de ~19 meses)* | | | |
 | 4 | 2025-02-23 | RPG de Mesa Persistente (ChatGPT) | Retomada da ideia, agora como RPG de mesa de mundo persistente (inspirado em MMORPGs), não mais RPG de turno digital. | [2025-02-23_RPG de Mesa Persistente_convertido.md](Conversas/GPT/2025-02-23_RPG%20de%20Mesa%20Persistente_convertido.md) |
@@ -191,15 +195,18 @@ conversa de WhatsApp de 2023, de que a arma ou o equipamento definam o personage
 
 ## Achado: o nome original era "1500 Caminhos do Brasil"
 
-Ao validar a conversão do chat #2 (2023-07-01), percebi que o `.json` original tinha
+Ao validar a conversão do chat #1 (2023-07-01), percebi que o `.json` original tinha
 uma mensagem que meu conversor estava descartando por engano: um documento de canvas
 criado em **2025-04-17**, quando Sidinei voltou nesse chat antigo e pediu um "backup
 resumido" para guardar como lembrança de como o jogo começou. Corrigi o conversor
 (`converter_json.py`) para capturar esse tipo de conteúdo e o documento já está
-incluído no arquivo do chat #2. Ele confirma, com data e tudo, que o nome de
-trabalho original do jogo era **"1500 Caminhos do Brasil"** — mesmo nome que aparece
-independentemente na conversa de WhatsApp do dia seguinte (chat #1), o que dá mais
-confiança de que a reconstrução está certa.
+incluído no arquivo do chat #1. Ele confirma, com data e tudo, que o nome de
+trabalho original do jogo era **"1500 Caminhos do Brasil"**. O nome, porém, não depende
+só desse backup: ele já aparece nas mensagens de 2023 do próprio chat, numa mensagem
+em que Sidinei reescreve o resumo do ChatGPT ("Caminhos do Brasil", RPG de ação) como
+"1500 Caminhos do Brasil", RPG de turno. É esse mesmo texto que ele cola no WhatsApp
+no dia seguinte (chat #2) — não é uma coincidência independente, é a mesma fonte, e
+mostra que o chat do ChatGPT veio antes da conversa de WhatsApp.
 
 ## Validação dos chats já existentes
 
