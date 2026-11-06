@@ -1,4 +1,4 @@
-<!-- Memória da conta do Claude · caminho original: /areas/reorganizacao-ia-projetos.md · atualizado em 2026-10-17 · export de 21/10/2026 -->
+<!-- Memória da conta do Claude · caminho original: /areas/reorganizacao-ia-projetos.md · atualizado em 2026-10-17 · export de 05/11/2026 -->
 
 ---
 name: reorganizacao-ia-projetos

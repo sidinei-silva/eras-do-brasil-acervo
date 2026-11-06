@@ -1,0 +1,26 @@
+# Go
+/sim/sim
+/server/server
+*.exe
+*.test
+*.out
+
+# Claude Code (configuração local, não versionada)
+.claude/settings.local.json
+
+# IDEs
+.vs/
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# SO
+.DS_Store
+Thumbs.db
+
+# Segredos locais
+.env
+*.local.json
+
+# Added by MD Pretty View — Markdown Preview Enhanced pan/zoom assets
+.crossnote/

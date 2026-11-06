@@ -11,10 +11,11 @@
 > do Gemini em [`Conversas/Gemini/`](Conversas/Gemini/), as sessões do Claude em
 > [`Conversas/Claude/`](Conversas/Claude/), os logs de sessão do Copilot arquivados em
 > [`Artefatos/03-mud-moderno-pre-fusao/gdd-batalha-turno/historico/`](Artefatos/03-mud-moderno-pre-fusao/gdd-batalha-turno/historico/) e uma checagem direta
-> dos repositórios de código. Os repositórios antigos de código (`eras-do-brasil-game-arquivado`,
-> `eras-do-brasil-idle` e `eras-do-brasil-semi-idle`) estão copiados aqui, com histórico
-> completo, em `Artefatos/`; o atual, `eras-do-brasil`, continua no GitHub. As conversas do
-> Claude vão até 22/10/2026 (três exports, com instruções e memórias dos Projects); as do
+> dos repositórios de código. Os repositórios de código (`eras-do-brasil-game-arquivado`,
+> `eras-do-brasil-idle`, `eras-do-brasil-semi-idle` e, como retrato de 05/11/2026,
+> `eras-do-brasil`) estão copiados aqui, com histórico completo, em `Artefatos/`; o
+> `eras-do-brasil` continua vivo no GitHub. As conversas do Claude vão até 05/11/2026 (quatro
+> exports, com instruções e memórias dos Projects); as do
 > ChatGPT até 24/09/2026; as do Gemini até 21/10/2026. Ainda falta mapear
 > `Artefatos/01-rpg-de-mesa-e-narrativa/NotebookLM/` na cronologia (ver
 > [Pendências](#pendências) no fim).
@@ -39,8 +40,10 @@ recomeça em TypeScript como um RPG de turno com modo ativo e caçada automátic
 "estudo solto" depois, ele tira do Eras o papel de "jogo perfeito para mim" e o jogo
 reaparece como **MMORPG sandbox por turno para PC**, com regras d20 no estilo Pathfinder
 2e e progressão do Albion, enredo escrito por ele mesmo e um repositório novo
-(`eras-do-brasil`, 21/10/2026) que por enquanto só tem documentação — com a stack
-(Unity + .NET) ainda como proposta não confirmada.
+(`eras-do-brasil`, 21/10/2026). A stack fecha em Go com cliente Unity (22/10), e o código
+escrito à mão começa no fim de outubro. Em 05/11/2026 o formato muda de novo: ao perceber que
+o que procura num MMORPG é o mundo vivo e a economia, não os outros jogadores, Sidinei leva o
+Eras para um **RPG de mundo vivo, com NPCs simulando jogadores, em C# e Unity**.
 
 ## Marcos: todas as roupagens do projeto
 
@@ -62,15 +65,19 @@ aponta para a linha correspondente da [Cronologia](#cronologia).
 | 10 | 06/09/2026 | **Eras do Brasil** (idle) | Fusão: esqueleto da Escória + mundo do Eras; MVP "A Travessia" | Go + Godot, arte 3D low poly | Claude + ChatGPT | Planejado para ser congelado após o tutorial | 39–52 |
 | 11 | 03/10/2026 | **Eras do Brasil** (novo) | RPG de turno instanciado com **modo ativo e caçada automática**, câmera 3D inclinada | **TypeScript** em tudo, monorepo, Electron para Steam | Claude | Repo renomeado para `-semi-idle` em 21/10 | 53–58 |
 | 12 | 14/10/2026 | — | *"Quero declarar aqui que o jogo esta totalmente indeciso"* | — | — | Uma semana depois, virou o 13 | 59 |
-| 13 | 15–21/10/2026 | **Eras do Brasil** (nome em aberto; "Eternos" cogitado) | **MMORPG sandbox por turno** para PC: d20 estilo Pathfinder 2e, grid com 3 ações, progressão do Albion, manual como pilar e automático como apoio, sem full loot | Unity + .NET + núcleo C# **(proposta do Claude, não confirmada)** | Claude + Gemini | **Hoje** — só documentação, nenhum código | 60–66 |
+| 13 | 15/10–05/11/2026 | **Eras do Brasil** (nome em aberto; "Eternos" cogitado) | **MMORPG sandbox por turno** para PC: d20 estilo Pathfinder 2e, grid com 3 ações, progressão do Albion, manual como pilar e automático como apoio, sem full loot | Go + cliente Unity (22/10; antes, Unity + .NET + núcleo C# como proposta não confirmada) | Claude + Claude Code + Gemini | Virou o 14 no meio da fase 1, com dado e primeira ação de combate escritos à mão | 60–73 |
+| 14 | 05/11/2026 | **Eras do Brasil** | **RPG de mundo vivo** que simula um MMORPG: NPCs e bots agem como jogadores (coletam, craftam, vendem, espalham fofoca), o mundo anda enquanto você está fora, e o combate continua por turno. Não é mais um MMORPG 100% online | **C# + Unity** | Claude | **Hoje** — direção escolhida; docs e código ainda no formato do 13 | 74 |
 
-**Contando:** 13 roupagens em pouco mais de 3 anos — 6 nomes diferentes (1500 Caminhos,
+**Contando:** 14 roupagens em pouco mais de 3 anos — 6 nomes diferentes (1500 Caminhos,
 Eras do Brasil, Albion Idle, Deuses-Armas, A Escória/Outlander e de novo Eras do Brasil),
-9 gêneros ou formatos (RPG de turno, RPG de mesa, RPG de texto, tático co-op, MUD MMORPG,
-idle MMO, idle fundido, turno com automação, MMORPG sandbox por turno), 5 tecnologias de
-base (Unity/C#, Go + web, Go + Godot, TypeScript + Electron e, proposta, Unity + .NET) e
+10 gêneros ou formatos (RPG de turno, RPG de mesa, RPG de texto, tático co-op, MUD MMORPG,
+idle MMO, idle fundido, turno com automação, MMORPG sandbox por turno, RPG de mundo vivo),
+5 tecnologias de base (Unity/C#, Go + web, Go + Godot, TypeScript + Electron e Go + Unity,
+com a de 05/11 voltando a Unity/C#) e
 **4 recomeços do zero** (o reset de 03/04/2026, o reset da Escória em ago/2026, o
-repositório em TypeScript de 05/10 e o repositório só de documentação de 21/10). A
+repositório em TypeScript de 05/10 e o repositório só de documentação de 21/10). O próprio
+Sidinei conta a virada de 05/11 como *"a decima quinta vez"*; a tabela conta 14 porque só
+marca as mudanças de forma que deixaram registro. A
 [seção de mecânicas](#como-cada-mecânica-mudou-entre-as-roupagens) mostra o que mudou
 por dentro em cada uma.
 
@@ -81,7 +88,8 @@ acompanharam o projeto:
   vs. código 0%"*; em 28/09/2026 o Claude, lendo esta própria linha do tempo, disse que
   organizar a história de um jogo sem loop jogável *"é exatamente o sintoma"*.
 - **A dúvida de linguagem.** Go vs. Node/TypeScript foi reaberta pelo menos sete vezes
-  (fev, 15/03, 07/04, 30/04, 23/05, 22/08 e out/2026) — e em outubro, de fato, trocou.
+  (fev, 15/03, 07/04, 30/04, 23/05, 22/08 e out/2026) — em outubro, de fato, trocou; em
+  22/10 voltou para Go; e em 05/11 foi para C#.
 - **IA no código → o jogo deixa de parecer dele → recomeço.** Foi a causa do reset de
   abril e voltou em outubro: *"eu sempre vou tentar fazer sem IA, em algum momento vou
   usar IA [...] e vou começar de novo do zero, e isso vai acontecer sempre"* (14/10).
@@ -96,7 +104,12 @@ acompanharam o projeto:
   pequena"*. A resposta do Sidinei foi tirar do Eras o papel de *"jogo perfeito para o
   Sidinei jogador"* (15/10) e fixar um norte de quatro linhas que, na prática, é o que ele
   escreveu no WhatsApp em 2023: jogo de turno, *"sua classe é o que você usa"*, o seu
-  trabalho importa no mundo e poder parar sem perder nada.
+  trabalho importa no mundo e poder parar sem perder nada. Em 05/11 ele separa as duas
+  coisas: *"Pode não ser o jogo perfeito mas o jogo que vou fazer precisa ser um jogo que eu
+  mesmo queira jogar"*.
+- **Regra chegando mais rápido do que código.** Identificado por ele em 04 e 05/11: o tempo
+  longe do computador é maior que o tempo de programar e vai para conversar com a IA, o que
+  gera regra e doc. As decisões se acumulam sem uso até ele *"desconhecer"* o próprio jogo.
 
 ## Como cada mecânica mudou entre as roupagens
 
@@ -104,7 +117,7 @@ Um corte por sistema, para ver o que mudou por dentro do jogo além do nome e da
 tecnologia. Cada célula resume o que estava valendo naquela fase, segundo os documentos e
 as conversas dela; "—" quando a fase não chegou a definir aquilo.
 
-| Sistema | RPG de mesa D20 (2025) | MUD Moderno (mar–mai/2026) | A Escória / idle fundido (jun–set/2026) | Semi-idle TypeScript (03–14/10/2026) | MMORPG sandbox por turno (15/10/2026 →) |
+| Sistema | RPG de mesa D20 (2025) | MUD Moderno (mar–mai/2026) | A Escória / idle fundido (jun–set/2026) | Semi-idle TypeScript (03–14/10/2026) | MMORPG sandbox por turno (15/10–05/11/2026) |
 |---|---|---|---|---|---|
 | **Combate** | D20 por turno, mesa narrada | D20 estático no MVP; grid tático planejado para depois | Auto-battler em ondas fechadas (teto de 50 rodadas), WebSocket cortado do MVP | Turno instanciado em filas (*lanes*) e casas; modo ativo e caçada automática no mesmo motor | Grid com 3 ações + 1 reação e penalidade de ataque múltiplo (Pathfinder 2e); **manual é o pilar, automático é o apoio**; a IA dos inimigos usa o mesmo decisor do automático |
 | **Resolução** | 1d20 + atributo + proficiência | 1d20 + modificador contra CD; Fadiga Espiritual no lugar de Mana | Fórmulas de idle (taxa × tempo) | Matemática inteira e RNG próprio, determinístico | 1d20 + atributo + proficiência + item; quatro graus de sucesso (±10); determinístico |
@@ -117,6 +130,10 @@ as conversas dela; "—" quando a fase não chegou a definir aquilo.
 **O que nunca mudou:** história e folclore do Brasil como inspiração; progressão
 inspirada no Albion desde que o Albion entrou (mai/2026); e o desejo, presente desde a
 conversa de WhatsApp de 2023, de que a arma ou o equipamento definam o personagem.
+
+A roupagem de 05/11/2026 ainda não tem coluna porque as mecânicas dela não foram reescritas.
+A [seção sobre a virada](#novembro-de-mmorpg-a-mundo-simulado-05112026) resume o que a
+conversa propôs manter, tirar e acrescentar.
 
 ## Cronologia
 
@@ -192,6 +209,14 @@ conversa de WhatsApp de 2023, de que a arma ou o equipamento definam o personage
 | 64 | 2026-10-19 | Consolidado do estudo + brainstorm multiagente (Claude) | O Claude junta o estudo num documento único (o "Consolidado do estudo"); NPCs ficam em duas categorias, *"somente viajantes e npcs de vila"*; e duas rodadas de debate entre agentes com estilos diferentes tentam fechar enredo e mundo. Na conversa sobre processo, o Claude diz que *"o jogo muda de identidade a cada poucas semanas e volta para o zero"* e sugere uma âncora de uma página. | [consolidado do estudo](Artefatos/06-mmorpg-sandbox-por-turno/consolidado-do-estudo-out-2026.md) · [brainstorm](Artefatos/06-mmorpg-sandbox-por-turno/brainstorm-2026-10-19/dossie-fases.md) · [processo](Conversas/Claude/2026-10-19_Criar%20MMORPG%20sandbox%20com%20hist%C3%B3ria.md) |
 | 65 | 2026-10-20 → 21 | Enredo do mundo (Claude + Gemini) | Rejeita a lore das IAs (*"achei muito generico e muito cara de IA"*, *"não gostei de nenhum pouco"*) e **escreve ele mesmo o enredo**, usando Claude e Gemini só para apontar furos: a **Raiz** tem vontade própria e foge, puxando terras de várias eras; **Enraizados** vêm junto com o chão; o jogador é um **Puxado**, eterno e sem origem lembrada; **Perdidos** são os tocados pela Raiz, sem consciência; na Travessia *"ninguem manda"* o jogador ir para a Era 1. | [Gemini](Conversas/Gemini/2026-10-21_Cria%C3%A7%C3%A3o%20de%20Lore%20e%20Enredo.md) · [RavenIdle](Conversas/Claude/2026-10-15_RavenIdle%20melee%20vs%20ranged%20mechanics.md) |
 | 66 | 2026-10-21 → 22 | Repositório novo, só documentação (Claude) | *"estou fazendo o documento a mão"* — com textos curtos, diagramas e Obsidian Canvas. Fecha progressão (*"Confirmo que as 2 escadas entram, confirmo gate por tiers 8 marcos"*) e a Travessia em 20 passos. O repo `eras-do-brasil` recebe o primeiro commit (21/10, 22h25: pilares, 6 mecânicas, enredo, técnico e roteiro em 7 fases, tudo `validado: false`, nenhuma linha de código) e o TypeScript vira `eras-do-brasil-semi-idle` — nenhuma conversa registra o porquê da troca de repo. Em 22/10 o Claude anota que a stack Unity + .NET *"você nunca confirmou de forma explícita"*. | [RavenIdle](Conversas/Claude/2026-10-15_RavenIdle%20melee%20vs%20ranged%20mechanics.md) |
+| 67 | 2026-10-21 → 23 | Debates, Go e fim da fase idle nos Projects (Claude) | Seis debates entre agentes sobre stack, arte e o jogo inteiro. O debate TS × Go empata e é desempatado por duas perguntas ao dono: **Go no núcleo, simulador e servidor, cliente em Unity**, com validade até a fase 2 jogável. Um Project antigo é renomeado como "Eras do Brasil - Idle" e arquivado, com um consolidado daquela versão. | [debates](Artefatos/06-mmorpg-sandbox-por-turno/debates-2026-10/README.md) · [decisão](Artefatos/06-mmorpg-sandbox-por-turno/debates-2026-10/06-ts-x-go/decisao.md) · [Project idle](Conversas/Claude/2026-10-22_Nesso%20projects%20formato%20e%20renomea%C3%A7%C3%A3o.md) · [consolidado idle](Conversas/Claude/2026-10-22_Consolidado%20do%20jogo.md) |
+| 68 | 2026-10-25 → 27 | Fase 1 e primeiro código (Claude + Claude Code) | Código em inglês e docs em português; pasta `rules/` vira `core/`; a IA não escreve regra nem casos de teste. Em 27/10: *"Eu fiz isso sozinho"* — dado determinístico e graus de sucesso em Go, à mão, com TDD. | [RavenIdle](Conversas/Claude/2026-10-15_RavenIdle%20melee%20vs%20ranged%20mechanics.md) · [cópia do repo](Artefatos/06-mmorpg-sandbox-por-turno/eras-do-brasil/_SOBRE-ESTA-COPIA.md) |
+| 69 | 2026-10-28 → 31 | Regras do combate T1 e primeira ação (Claude) | HP, skills de armadura, conversão Albion → Eras, os encontros da Beira e a conjuração do tapa do chefe são decididos em poucos dias, enquanto a primeira ação de combate é escrita à mão. | [combate T1](Conversas/Claude/2026-10-28_Eras%20do%20Brasil%3A%20combate%20T1.md) · [apply e TDD](Conversas/Claude/2026-10-28_Papel%20do%20apply.go%20e%20combat.go%20no%20TDD.md) · [testes e structs](Conversas/Claude/2026-10-29_Planejamento%20de%20testes%20e%20structs%20de%20combate.md) |
+| 70 | 2026-11-01 | Sem vontade de jogar nem de desenvolver (Claude) | *"estou sem vontade de jogar e tambem não estou com muita vontade de desenvolver o meu jogo"*. Conta que largou jogos de turno pela luta *"picotada"* e que só quer pensar no próprio personagem. Pergunta se todo jogo de turno precisa ser estratégico. | [RavenIdle](Conversas/Claude/2026-10-15_RavenIdle%20melee%20vs%20ranged%20mechanics.md) |
+| 71 | 2026-11-02 | Devlog e critérios de jogador (Claude) | Nasce a skill `/devlog`, com posts escritos a partir de entrevista e só com material real. Em paralelo, compara MMOs por critérios de jogador e registra o padrão de AFK que serve ao Eras. | [RavenIdle](Conversas/Claude/2026-10-15_RavenIdle%20melee%20vs%20ranged%20mechanics.md) · [RuneScape × Albion](Conversas/Claude/2026-11-02_Compara%C3%A7%C3%A3o%20RuneScape%20e%20Albion%20Online.md) |
+| 72 | 2026-11-03 | Quatro dúvidas de formato no mesmo dia (Claude) | POC descartável feita com IA, medo da rejeição da comunidade ao automático, grid × hexágono e mundo instanciado como um dungeon crawler. As respostas mandam estacionar ou manter, mas a sequência mostra que o formato já estava em dúvida dois dias antes da virada. | [POC](Conversas/Claude/2026-11-03_POC%20de%20jogo%20com%20IA.md) · [auto play](Conversas/Claude/2026-11-03_Auto%20play%20em%20MMORPGs.md) · [grid](Conversas/Claude/2026-11-03_Grid%20vs%20hexagonal%2C%20jogos.md) · [mundo instanciado](Conversas/Claude/2026-11-03_Eras%20do%20Brasil%3A%20mundo%20instanciado.md) |
+| 73 | 2026-11-04 | "Como se Fosse a Primeira Vez" e o Dojo (Claude) | *"é como se eu esquecesse as minhas decisões"*. Ele suspeita que a sensação de o jogo não ser dele não vinha da IA em si, e sim de não absorver o que ela acelera. Nascem o Dojo das regras (117 fichas), o modo rádio, o podcast, o Anki, a regra do dia e `/contar-o-jogo`. | [RavenIdle](Conversas/Claude/2026-10-15_RavenIdle%20melee%20vs%20ranged%20mechanics.md) |
+| 74 | 2026-11-05 | **De MMORPG a mundo simulado** (Claude) | *"Estava pensando se MMORPG para o Eras é realmente meu desejo, ou se quero o mmorpg somente para ter um mundo vivo"*. O jogo passa a ser um RPG de mundo vivo com NPCs simulando jogadores, em **C# + Unity**. Ver a [seção própria](#novembro-de-mmorpg-a-mundo-simulado-05112026). | [RavenIdle](Conversas/Claude/2026-10-15_RavenIdle%20melee%20vs%20ranged%20mechanics.md) |
 
 ## Achado: o nome original era "1500 Caminhos do Brasil"
 
@@ -433,7 +458,83 @@ curtas do Claude e de uma conversa com o Gemini.
    `validado: false`, e ainda não há nenhuma linha de código. O roteiro diz que a IA
    escreve os testes e ele escreve o código.
 
-## Estado real dos repositórios (conferido em 21/10/2026)
+## Novembro: de MMORPG a mundo simulado (05/11/2026)
+
+Reconstruído do fim da sessão "RavenIdle melee vs ranged mechanics", de 01 a 05/11. A
+conversa terminou com a escolha entre C#, Go e TS ainda em aberto; a direção **C# + Unity,
+NPCs simulando jogadores e não mais um MMORPG 100%** foi confirmada por Sidinei logo depois,
+no mesmo dia, ao pedir a atualização deste acervo.
+
+**O que levou à virada:**
+
+1. **O que ele procura num MMORPG.** *"um dos principais é economia, mercado, sensação de
+   mundo vivo, ter coisas vendendo e comprando no leião"*. Grupo fixo, trindade, guilda e
+   guerra de larga escala ele quase não usa.
+2. **O gatilho.** Um vídeo de alguém jogando sozinho num servidor privado de WoW, com bots
+   que pegam missão, vendem, trocam, falam no chat e formam grupo.
+3. **O que o empolgou no desenvolvimento.** *"fazer os npcs com vontade e necessidades e o
+   sistema de fofoca"* — justamente o MUD Moderno de março a maio.
+4. **O que o afasta dos RPGs single player.** Dropa os que parecem ter o que ele quer, mas
+   não passam a sensação de mundo vivo.
+5. **O motivo de fundo.** *"preciso me sentir bem fazendo o jogo e sentir que é isso eu vou
+   querer jogar meu jogo"*. Sai também o medo do que a comunidade de MMORPG vai achar, que em
+   03/11 ainda pesava, *"porque não vai ser mais essa comunidade que vou querer agradar"*.
+6. **O problema técnico que explica o MMORPG.** Um mundo persistente por jogador parecia
+   exigir um servidor por jogador. *"acho que isso que me fez arrastar para o mmorpg"*. A
+   saída dele: ao abrir o save, calcular o tempo fora e gerar os eventos que teriam
+   acontecido.
+7. **Por que agora.** *"o bom do simulado é que eu me divirto desde o day 1"*, podendo ficar
+   em modo espectador. E quer *"começar pequeno"* e saber o jogo *"como a palma das minhas
+   mãos"*, depois de identificar em 04/11 que a regra vinha chegando mais rápido do que ele
+   conseguia absorver.
+
+**A escolha da linguagem.** O Claude começou recomendando Go + Unity local, e Sidinei
+rejeitou: quer assistir à simulação na tela. Em seguida, os dois compararam Go como servidor
+local com C# no Unity. O fio entre os dois processos custa pouco no combate por turno, mas
+fica no meio do mundo contínuo com bots andando, que é o centro do jogo novo. O online deixou
+de ser plano e virou no máximo uma porta: um servidor .NET poderia rodar o mesmo núcleo em C#
+no futuro. Pesa contra: reescrever o pouco que existe em Go e perder o treino de Go, que era
+um dos motivos da decisão de 22/10.
+
+**O que a conversa propôs para o formato novo** (proposta, não decisão registrada em doc):
+
+| Fica | Sai | Entra |
+|---|---|---|
+| d20, graus de sucesso, determinismo, combate por turno, "você é o que veste", duas escadas, ofícios, tiers, durabilidade, enredo, Travessia e cerca de 70% dos docs | Servidor online, login, rede, contrato de mensagens, PvP contra eco, grupo e guilda | Simulação do mundo, mercado movido por bots, cálculo do tempo fora, e três tipos de NPC (de cidade, aventureiro e NPC-player com perfis e Utility AI) |
+
+Arquitetura esboçada: `Eras.Core` em C# puro, sem `UnityEngine`, com semente própria e só
+inteiros; `Eras.Sim` como relógio do mundo; `Eras.Game` no Unity, que só mostra e pede; testes
+fora da cena. Editor sugerido: VS Code. Nos Puxados, os bots-jogadores encaixam no enredo.
+
+**O que continua em aberto:**
+
+- **2D ou 3D.** Ele não se convenceu do low poly. A conversa tratava esse teste de arte como o
+  que fecharia a linguagem (2D reabriria Go com Ebitengine). Com C# + Unity escolhido, ele
+  segue decidindo o estilo, mas não mais a linguagem.
+- **Repositório novo ou o mesmo.** O Claude recomendou o mesmo, para a mudança ser de formato e
+  não mais um recomeço do zero. Ainda sem decisão.
+- **A página "o que é o jogo".** Combinado que ele a escreve com as próprias palavras antes de
+  mexer no repositório.
+- **O teste da vila.** A sugestão era 5 NPCs, 1 perfil e um mercado na tela, em 3 a 5 sessões,
+  para provar que assistir prende antes de reescrever os docs.
+- **Docs que contradizem o formato novo.** `AGENTS.md` ("a stack só se rediscute com a fase em
+  curso jogável"), `01-o-jogo.md` ("Nada acontece offline" e a motivação de ter um MMORPG),
+  `03-tecnico.md` (servidor em Go) e o roteiro. Nada disso foi alterado.
+
+**Ligações com o histórico:**
+
+- A ideia não é inédita. O RPG de mesa de 2025 já era de *mundo persistente*, e o MUD de 2026
+  tinha NPCs com rotina e fofoca. Unity e C# foram a stack da fase de fevereiro de 2026 e a
+  proposta nunca confirmada de 17/10.
+- Em 23/06/2026 (#34) o Eras foi congelado porque NPCs com fofoca, rotina e necessidades seriam
+  *"sistemas de estúdio de 30 pessoas"*. A virada coloca esses sistemas no centro do jogo. O
+  Claude avisou em 05/11 que o NPC-player é a parte mais difícil, e que deve começar com 1
+  perfil e 1 ciclo.
+- Em 15/10 (#60) ele tirou do Eras o papel de *"jogo perfeito para o Sidinei jogador"*, e isso
+  continua valendo. O critério de 05/11 é outro, mais simples: *"Pode não ser o jogo perfeito
+  mas o jogo que vou fazer precisa ser um jogo que eu mesmo queira jogar"*.
+
+## Estado real dos repositórios (conferido em 21/10/2026, com o `eras-do-brasil` atualizado em 05/11)
 
 Os três repositórios de código anteriores foram **copiados para este acervo** em
 21/10/2026, com o histórico completo em `git bundle`, e os clones locais foram apagados.
@@ -447,7 +548,7 @@ foi salvo como patch ao lado do bundle. A exclusão no GitHub ficou para o Sidin
 | `escoria` | 21/08 e 31/08 → 10/09/2026 | A Escória / Outlander, em Go | ainda no GitHub, não copiado |
 | `eras-do-brasil-idle` | 12/09 → 26/09/2026, 74 commits | O Eras idle fundido, em Go, MVP "A Travessia" | [`Artefatos/04-idle-escoria-e-fusao/eras-do-brasil-idle/`](Artefatos/04-idle-escoria-e-fusao/eras-do-brasil-idle/_SOBRE-ESTA-COPIA.md) + `.bundle` |
 | `eras-do-brasil-semi-idle` | 05/10 → 14/10/2026, 17 commits | O recomeço em TypeScript (core de combate, playground) | [`Artefatos/05-semi-idle-typescript/eras-do-brasil-semi-idle/`](Artefatos/05-semi-idle-typescript/eras-do-brasil-semi-idle/_SOBRE-ESTA-COPIA.md) + `.bundle` |
-| `eras-do-brasil` | 21/10/2026 → hoje, 1 commit | O atual: só documentação (Obsidian), stack proposta Unity + .NET | no GitHub — **não copiado**, é o projeto vivo; retrato em [`consolidado-atual_2026-10-21.md`](Artefatos/06-mmorpg-sandbox-por-turno/consolidado-atual_2026-10-21.md) |
+| `eras-do-brasil` | 21/10 → 05/11/2026, 39 commits (até o retrato) | Docs validados do MMORPG sandbox e começo da fase 1 em Go | Continua vivo no GitHub, sem alteração; retrato de 05/11 em [`Artefatos/06-mmorpg-sandbox-por-turno/eras-do-brasil/`](Artefatos/06-mmorpg-sandbox-por-turno/eras-do-brasil/_SOBRE-ESTA-COPIA.md) + `.bundle` |
 
 Para recuperar qualquer um deles por inteiro: `git clone <nome>.bundle <pasta>`.
 
@@ -715,12 +816,14 @@ python3 converter_json.py <arquivo.json> <YYYY-MM-DD_Titulo_convertido.md>
 O `converter.py` original (HTML → Markdown) continua no mesmo diretório para
 referência, caso apareçam exports antigos em HTML.
 
-Os exports do Claude (formato `chat_messages`, já lineares, sem árvore de branches)
+Os exports do Claude (formato `chat_messages`, em lista)
 foram convertidos com [`Conversas/Claude/converter_claude.py`](Conversas/Claude/converter_claude.py),
 que mantém só blocos de texto visíveis de `human`/`assistant` (descarta `thinking`,
 `tool_use`, `tool_result` e `injected_prompt_block` — ruído interno de execução de
 ferramentas do Claude Code) e lista anexos por nome sem despejar o conteúdo (a maioria
-é documento do próprio repo, redundante). Uso:
+é documento do próprio repo, redundante). A lista inclui mensagens editadas ou refeitas,
+e o script mantém todas, então uma mesma pergunta pode aparecer duas vezes com respostas
+próprias. Uso:
 
 ```bash
 python3 converter_claude.py <arquivo.json> <YYYY-MM-DD_Titulo.md>

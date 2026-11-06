@@ -10,8 +10,8 @@ Desktop.ini
 # Ignorar arquivos do VS Code (só os deste repo; as cópias em Artefatos/ guardam as suas)
 /.vscode/
 
-# Ignorar arquivos do Obsidian
-.obsidian/
+# Ignorar arquivos do Obsidian (só os deste repo; as cópias em Artefatos/ guardam as suas)
+/.obsidian/
 
 # Ignorar cache de scripts Python (converter_json.py, converter_claude.py etc.)
 __pycache__/

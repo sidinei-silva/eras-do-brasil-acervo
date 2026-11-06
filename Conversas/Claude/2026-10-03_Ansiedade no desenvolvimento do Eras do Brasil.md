@@ -6261,3 +6261,28 @@ Ela nunca virou era do jogo.
 Se quiser, acrescento isto como uma seção "Mundo e lore (herdado do F7)" no `eras-consolidado-f8.md`.
 
 ---
+
+## Sidinei:
+
+Faça uma arquivo de como ficou todo o consolidado e decisões do jogo, desde combate, mecanicas, enredo, mundo, historia, como ficou dividido e decido as zonas, as regiões e as eras, e como pode ser adicionado no futuro coisas nova, faça um detalhado de tudo que ja foi decidido aqui.
+
+---
+
+## Claude:
+
+Fiz o `eras-consolidado.md` a partir do estado atual do repositório (commit de 21/10), que foi reescrito desde o consolidado do F8. Ele cobre o jogo e os pilares, o enredo, a estrutura do mundo, a Travessia, o motor d20, combate, personagem, ofícios e economia, durabilidade e morte, técnico e roteiro. Cada item está marcado como decidido, proposta, em aberto ou adiado.
+
+A parte de como adicionar coisa nova virou checklists para nova era, nova zona, nova mecânica e evento. Montei com as regras que já estão nos seus docs, sem criar regra nova.
+
+Duas coisas que você precisa saber:
+
+- **Nada aparece como validado no repositório.** Todos os arquivos ainda estão com `validado: false`. Então "decidido" ali quer dizer "está na seção de regras", não "você já conferiu".
+- **Achei dois conflitos e marquei com ⚠️ no arquivo:**
+  - A Era vai até T6, mas a maestria tem marcos até T8. Falta dizer onde ficam o T7 e o T8.
+  - Os nomes das zonas e facções da Era 1 que vieram do F7 (Potiguara, Serra da Barriga, Os Encantados) batem de frente com a regra nova de "sem nomes fortes". Deixei esse rascunho num anexo, como referência, porque as zonas da Era 1 continuam em aberto.
+
+No fim também tem uma tabela curta com o que mudou desde o F8: filas viraram grid com 3 ações, a fórmula de dano virou d20, e o TypeScript virou Unity + .NET.
+
+[Arquivo anexado: eras-consolidado.md]
+
+---

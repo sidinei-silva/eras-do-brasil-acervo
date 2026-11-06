@@ -15,7 +15,7 @@ Projects do Claude:
 | `claude-projects/projeto-outland/` | "Projeto Outland" — inclui `poc-albion-idle.md`, a especificação da PoC do tutorial "Albion Idle" | 27/05 → jun/2026 |
 | `claude-projects/a-escoria-outlander/` | "A Escória (Outlander)" — instruções e `RECEITA.md` (como se trabalha no projeto) | 22/06 → set/2026 |
 | `claude-projects/eras-do-brasil-arquivado-2/` | "Eras do Brasil - Arquivado 2" — o Project do Eras fundido | 13/09 → 03/10/2026 |
-| `claude-projects/eras-do-brasil-2026-09-26/` | "Eras do Brasil" — o Project recriado em 26/09 | 26/09 → set/2026 |
+| `claude-projects/eras-do-brasil-2026-09-26/` | "Eras do Brasil" — o Project recriado em 26/09; em 22/10 renomeado para "Eras do Brasil - Idle" e arquivado | 26/09 → out/2026 |
 
 Dois consolidados olham a mesma fase por lados diferentes:
 
